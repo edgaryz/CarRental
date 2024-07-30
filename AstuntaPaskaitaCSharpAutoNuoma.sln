@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AstuntaPaskaitaCSharpAutoNuoma", "AstuntaPaskaitaCSharpAutoNuoma\AstuntaPaskaitaCSharpAutoNuoma.csproj", "{F6B87D42-9619-458E-ADE4-B0D39F43BCC9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRental.Core", "AutoNuoma.Core\CarRental.Core.csproj", "{24CC3D20-5A0F-4311-9E11-C8438E10F4F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{F6B87D42-9619-458E-ADE4-B0D39F43BCC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6B87D42-9619-458E-ADE4-B0D39F43BCC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6B87D42-9619-458E-ADE4-B0D39F43BCC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24CC3D20-5A0F-4311-9E11-C8438E10F4F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24CC3D20-5A0F-4311-9E11-C8438E10F4F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24CC3D20-5A0F-4311-9E11-C8438E10F4F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24CC3D20-5A0F-4311-9E11-C8438E10F4F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

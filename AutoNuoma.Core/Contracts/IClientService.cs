@@ -7,7 +7,7 @@ namespace CarRental.Core.Contracts
         void ReadFile();
         void WriteFile();
         void AddClient(Client client);
-        List<Client> FindClientByFirstNameAndLastName(string firstName, string lastName);
+        Client FindClientByFirstNameAndLastName(string firstName, string lastName);
         List<Client> GetAllClients();
     }
 }

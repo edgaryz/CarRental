@@ -5,19 +5,22 @@ namespace CarRental.Core.Services
 {
     public class ClientService : IClientService
     {
-        public void AddClient(Client client)
+        private readonly IClientRepository _clientRepository;
+        private List<Client> AllClients = new List<Client>();
+        public ClientService(IClientRepository clientRepositor)
         {
-            throw new NotImplementedException();
+            _clientRepository = clientRepositor;
         }
-
-        public List<Client> FindClientByFirstNameAndLastName(string firstName, string lastName)
+        public void AddClient(Client client)
         {
             throw new NotImplementedException();
         }
 
         public List<Client> GetAllClients()
         {
-            throw new NotImplementedException();
+            if (AllClients.Count == 0)
+                AllClients = _clientRepository.ReadClients();
+            return AllClients;
         }
 
         public void ReadFile()
@@ -29,5 +32,20 @@ namespace CarRental.Core.Services
         {
             throw new NotImplementedException();
         }
+
+        public Client FindClientByFirstNameAndLastName(string firstName, string lastName)
+        {
+            Client client = new Client();
+            foreach (Client k in AllClients)
+            {
+                if (k.FirstName == firstName && k.LastName == lastName)
+                {
+                    client = k;
+                    break;
+                }
+            }
+            return client;
+        }
+
     }
 }

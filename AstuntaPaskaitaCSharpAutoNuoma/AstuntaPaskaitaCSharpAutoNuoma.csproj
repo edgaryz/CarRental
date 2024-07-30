@@ -11,4 +11,13 @@
     <ProjectReference Include="..\AutoNuoma.Core\CarRental.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="cars.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="clients.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

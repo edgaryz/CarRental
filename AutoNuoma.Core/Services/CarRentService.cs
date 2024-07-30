@@ -8,6 +8,10 @@ namespace CarRental.Core.Services
         public readonly IClientService _clientService;
         public readonly ICarsService _carsService;
 
+        private List<Car> AllCars = new List<Car>();
+
+        private List<RentOrder> AllOrders = new List<RentOrder>();
+
         public CarRentService() { }
         public CarRentService(IClientService clientService, ICarsService carsService)
         {
@@ -19,9 +23,26 @@ namespace CarRental.Core.Services
             throw new NotImplementedException();
         }
 
-        public void CreateOrder(RentOrder order)
+        public void CreateOrder(string clientName, string clientLastName, int autoId, DateTime orderStartDate, int orderDays)
         {
-            throw new NotImplementedException();
+            Client client = _clientService.FindClientByFirstNameAndLastName(clientName, clientLastName);
+
+            Car car = new Car();
+
+            foreach (Car a in AllCars)
+            {
+                if (a.Id == autoId)
+                    car = a;
+            }
+
+            RentOrder rentOrder = new RentOrder
+            {
+                Client = client,
+                Car = car,
+                OrderStartDate = orderStartDate,
+                OrderDays = orderDays
+            };
+            AllOrders.Add(rentOrder);
         }
 
         public List<RentOrder> GetAllOrders()
@@ -36,12 +57,19 @@ namespace CarRental.Core.Services
 
         public List<Car> GetAllCars()
         {
-            return _carsService.GetAllCars();
+            if (AllCars.Count == 0)
+                AllCars = _carsService.GetAllCars();
+            return AllCars;
         }
 
         public void AddNewCar(Car car)
         {
             _carsService.AddCar(car);
+        }
+
+        public List<Client> GetAllClients()
+        {
+            return _clientService.GetAllClients();
         }
 
     }

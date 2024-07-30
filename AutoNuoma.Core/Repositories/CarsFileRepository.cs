@@ -19,7 +19,7 @@ namespace CarRental.Core.Repositories
                 while (!sr.EndOfStream)
                 {
                     string line = sr.ReadLine();
-                    string[] values = line.Split(',');
+                    string[] values = line.Split(',', StringSplitOptions.RemoveEmptyEntries);
                     if (values.Length == 5)
                     {
                         //oil fuel based car
@@ -34,12 +34,12 @@ namespace CarRental.Core.Repositories
                     {
                         //electric car
                         cars.Add(new ElectricCar(
-                        int.Parse(values[0]),
-                        values[1],
-                        values[2],
-                        decimal.Parse(values[3]),
-                        values[4],
-                        int.Parse(values[5])));
+                            int.Parse(values[0]),
+                            values[1],
+                            values[2],
+                            decimal.Parse(values[3]),
+                            values[4],
+                            int.Parse(values[5])));
                     }
 
                 }
@@ -51,9 +51,34 @@ namespace CarRental.Core.Repositories
         {
             using (StreamWriter sw = new StreamWriter(_filePath, true))
             {
-                //reikia atskirti su if ar electric ar oil based
-                //ir reikia foreach nes paduodu lista ir is listo pasiimti values
-                sw.WriteLine($"{carList.Name},{employee.Age}");
+                //based on Car type
+                if (carList is ElectricCar)
+                {
+                    foreach (ElectricCar car in carList)
+                    {
+                        //ElectricCar line
+                        sw.WriteLine($"" +
+                            $"{car.Id}," +
+                            $"{car.Brand}," +
+                            $"{car.Model}," +
+                            $"{car.RentPrice}," +
+                            $"{car.BatteryCapacity}," +
+                            $"{car.BatteryChargingTime}");
+                    }
+                }
+                else
+                {
+                    foreach (OilFuelCar car in carList)
+                    {
+                        //OilFuelCar line
+                        sw.WriteLine($"" +
+                            $"{car.Id}," +
+                            $"{car.Brand}," +
+                            $"{car.Model}," +
+                            $"{car.RentPrice}," +
+                            $"{car.FuelConsumption}");
+                    }
+                }
             }
         }
     }

@@ -9,5 +9,9 @@
             FuelConsumption = fuelConsumption;
         }
 
+        public override string ToString()
+        {
+            return $"{Id} {Brand} {Model}, rent price: {RentPrice} Eur, fuel consumption: {FuelConsumption}.";
+        }
     }
 }

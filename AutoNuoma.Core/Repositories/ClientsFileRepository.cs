@@ -5,19 +5,48 @@ namespace CarRental.Core.Repositories
 {
     public class ClientsFileRepository : IClientRepository
     {
-        List<Client> IClientRepository.ReadClients()
+        public readonly string _filePath;
+        public ClientsFileRepository(string filePath)
+        {
+            _filePath = filePath;
+        }
+
+        public List<Client> ReadClients()
+        {
+            List<Client> clients = new List<Client>();
+            using (StreamReader sr = new StreamReader(_filePath))
+            {
+
+                while (!sr.EndOfStream)
+                {
+                    string line = sr.ReadLine();
+                    string[] values = line.Split(',', StringSplitOptions.RemoveEmptyEntries);
+                    clients.Add(new Client(
+                        values[0],
+                        values[1],
+                        DateOnly.Parse(values[2])));
+                }
+            }
+            return clients;
+        }
+
+        public void WriteClient(Client client)
         {
             throw new NotImplementedException();
         }
 
-        void IClientRepository.WriteClient(Client client)
+        public void WriteClients(List<Client> clientList)
         {
-            throw new NotImplementedException();
-        }
-
-        void IClientRepository.WriteClients(List<Client> clientList)
-        {
-            throw new NotImplementedException();
+            using (StreamWriter sw = new StreamWriter(_filePath, true))
+            {
+                foreach (Client client in clientList)
+                {
+                    sw.WriteLine($"" +
+                        $"{client.FirstName}," +
+                        $"{client.LastName}," +
+                        $"{client.YearOfBirth},");
+                }
+            }
         }
     }
 }

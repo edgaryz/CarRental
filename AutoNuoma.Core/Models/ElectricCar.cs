@@ -11,5 +11,10 @@
             BatteryCapacity = batteryCapacity;
             BatteryChargingTime = batteryChargingTime;
         }
+
+        public override string ToString()
+        {
+            return $"{Id} {Brand} {Model} rent price: {RentPrice} Eur, battery: {BatteryCapacity}, battery charge time: {BatteryChargingTime} val.";
+        }
     }
 }

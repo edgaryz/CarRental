@@ -1,4 +1,6 @@
-﻿namespace CarRental.Core.Models
+﻿using System.Reflection;
+
+namespace CarRental.Core.Models
 {
     public class Client
     {
@@ -12,6 +14,11 @@
             FirstName = firstName;
             LastName = lastName;
             YearOfBirth = yearOfBirth;
+        }
+
+        public override string ToString()
+        {
+            return $"Client: {FirstName} {LastName} {YearOfBirth.ToString("yyyy-MM-dd")}";
         }
     }
 }

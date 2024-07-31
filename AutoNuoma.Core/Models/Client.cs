@@ -1,15 +1,13 @@
-﻿using System.Reflection;
-
-namespace CarRental.Core.Models
+﻿namespace CarRental.Core.Models
 {
     public class Client
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DateOnly YearOfBirth { get; set; }
+        public DateTime YearOfBirth { get; set; }
 
         public Client() { }
-        public Client(string firstName, string lastName, DateOnly yearOfBirth)
+        public Client(string firstName, string lastName, DateTime yearOfBirth)
         {
             FirstName = firstName;
             LastName = lastName;

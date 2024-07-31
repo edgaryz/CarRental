@@ -11,6 +11,16 @@ namespace CarRental.Core.Repositories
             _filePath = filePath;
         }
 
+        public List<Client> GetAllClientsFromDb()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertClient(Client client)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Client> ReadClients()
         {
             List<Client> clients = new List<Client>();
@@ -24,7 +34,7 @@ namespace CarRental.Core.Repositories
                     clients.Add(new Client(
                         values[0],
                         values[1],
-                        DateOnly.Parse(values[2])));
+                        DateTime.Parse(values[2])));
                 }
             }
             return clients;

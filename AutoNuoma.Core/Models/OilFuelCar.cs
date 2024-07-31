@@ -8,10 +8,14 @@
         {
             FuelConsumption = fuelConsumption;
         }
+        public OilFuelCar(string brand, string model, decimal rentPrice, string fuelConsumption) : base(brand, model, rentPrice)
+        {
+            FuelConsumption = fuelConsumption;
+        }
 
         public override string ToString()
         {
-            return $"{Id} {Brand} {Model}, rent price: {RentPrice} Eur, fuel consumption: {FuelConsumption}.";
+            return $"{Id} {Brand} {Model}, rent price: {RentPrice.ToString("F2")} Eur, fuel consumption: {FuelConsumption}.";
         }
     }
 }

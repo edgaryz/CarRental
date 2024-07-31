@@ -16,7 +16,7 @@ namespace CarRental.Core.Services
             throw new NotImplementedException();
         }
 
-        public List<Client> GetAllClients()
+        public List<Client> GetAllClientsFromFile()
         {
             if (AllClients.Count == 0)
                 AllClients = _clientRepository.ReadClients();
@@ -47,5 +47,14 @@ namespace CarRental.Core.Services
             return client;
         }
 
+        public void InsertClient(Client client)
+        {
+            _clientRepository.InsertClient(client);
+        }
+
+        public List<Client> GetAllClientsFromDb()
+        {
+            return _clientRepository.GetAllClientsFromDb();
+        }
     }
 }

@@ -11,10 +11,15 @@
             BatteryCapacity = batteryCapacity;
             BatteryChargingTime = batteryChargingTime;
         }
+        public ElectricCar(string brand, string model, decimal rentPrice, string batteryCapacity, int batteryChargingTime) : base(brand, model, rentPrice)
+        {
+            BatteryCapacity = batteryCapacity;
+            BatteryChargingTime = batteryChargingTime;
+        }
 
         public override string ToString()
         {
-            return $"{Id} {Brand} {Model} rent price: {RentPrice} Eur, battery: {BatteryCapacity}, battery charge time: {BatteryChargingTime} val.";
+            return $"{Id} {Brand} {Model} rent price: {RentPrice.ToString("F2")} Eur, battery: {BatteryCapacity}, battery charge time: {BatteryChargingTime} val.";
         }
     }
 }

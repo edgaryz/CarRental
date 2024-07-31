@@ -11,6 +11,26 @@ namespace CarRental.Core.Repositories
             _filePath = autoFilePath;
         }
 
+        public List<ElectricCar> GetAllElectricCars()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<OilFuelCar> GetAllOilFuelCars()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertElectricCar(ElectricCar ev)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertOilFuelCar(OilFuelCar v)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Car> ReadCars()
         {
             List<Car> cars = new List<Car>();

@@ -6,5 +6,10 @@ namespace CarRental.Core.Contracts
     {
         List<Car> ReadCars();
         void WriteCars(List<Car> carList);
+        List<ElectricCar> GetAllElectricCars();
+        List<OilFuelCar> GetAllOilFuelCars();
+        void InsertElectricCar(ElectricCar ev);
+        void InsertOilFuelCar(OilFuelCar v);
+
     }
 }

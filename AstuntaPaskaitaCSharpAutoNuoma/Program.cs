@@ -14,60 +14,92 @@ public class Program
         ICarRentService carRentService = SetupDependencies();
         while (true)
         {
-            Console.WriteLine("1. Rodyti visus automobilius");
-            Console.WriteLine("2. Rodyti visus klientus");
-            Console.WriteLine("3. Formuoti nuomos uzsakyma");
-            string pasirinkimas = Console.ReadLine();
-            switch (pasirinkimas)
+            Console.WriteLine("1. GetAllElectricCars");
+            Console.WriteLine("2. GetAllOilFuelCars");
+            Console.WriteLine("3. InsertNewCar");
+            Console.WriteLine("4. GetAllClientsFromDb");
+            Console.WriteLine("5. InsertNewClient");
+            string choice = Console.ReadLine();
+            switch (choice)
             {
                 case "1":
-                    List<Car> auto = carRentService.GetAllCars();
-                    foreach (Car a in auto)
+                    List<ElectricCar> ev = carRentService.GetAllElectricCars();
+                    foreach (ElectricCar e in ev)
                     {
-                        Console.WriteLine(a);
+                        Console.WriteLine(e);
                     }
                     break;
                 case "2":
-                    List<Client> client = carRentService.GetAllClients();
-                    foreach (Client k in client)
+                    List<OilFuelCar> ofc = carRentService.GetAllOilFuelCars();
+                    foreach (OilFuelCar v in ofc)
                     {
-                        Console.WriteLine(k);
+                        Console.WriteLine(v);
                     }
                     break;
                 case "3":
-                    Console.WriteLine("Nuomos uzsakymas: ");
-                    foreach (Client k in carRentService.GetAllClients())
+                    Car newCar = new Car();
+                    string batteryCapacity = "";
+                    int batteryChargingTime = 0;
+                    string fuelConsumption = "";
+                    Console.WriteLine("Electric Car - 1  Oil Fuel Car - 2: ");
+                    string type = Console.ReadLine();
+                    switch(type)
                     {
-                        Console.WriteLine(k);
+                        case "1":
+                            Console.WriteLine("Enter battery capacity");
+                            batteryCapacity = Console.ReadLine();
+                            Console.WriteLine("Enter battery charging time");
+                            batteryChargingTime = int.Parse(Console.ReadLine());
+                            break;
+                        case "2":
+                            Console.WriteLine("Enter fuel consumption");
+                            fuelConsumption = Console.ReadLine();
+                            break;
                     }
-
-                    Console.WriteLine("Iveskite norimo kliento varda");
-                    string vardas = Console.ReadLine();
-                    Console.WriteLine("Iveskite norimo kliento pavarde");
-                    string pavarde = Console.ReadLine();
-
-                    foreach (Car a in carRentService.GetAllCars())
+                    Console.WriteLine("Enter car brand");
+                    string brand = Console.ReadLine();
+                    Console.WriteLine("Enter car model");
+                    string model = Console.ReadLine();
+                    Console.WriteLine("Enter car rent price");
+                    decimal rentPrice = decimal.Parse(Console.ReadLine());
+                    switch(type)
                     {
-                        Console.WriteLine(a);
+                        case "1":
+                            newCar = new ElectricCar(brand, model, rentPrice, batteryCapacity, batteryChargingTime);
+                            break;
+                        case "2":
+                            newCar = new OilFuelCar(brand, model, rentPrice, fuelConsumption);
+                            break;
                     }
-
-                    Console.WriteLine("Pasirinkite automobili pagal Id sarase: ");
-                    int autoId = int.Parse(Console.ReadLine());
-
-                    Console.WriteLine("Iveskite kiek dienu autommobilis yra isnuomojamas: ");
-                    int dienos = int.Parse(Console.ReadLine());
-
-                    carRentService.CreateOrder(vardas, pavarde, autoId, DateTime.Now, dienos);
-
+                    carRentService.AddNewCar(newCar);
+                    break;
+                case "4":
+                    List<Client> clients = carRentService.GetAllClientsFromDb();
+                    foreach (Client cl in clients)
+                    {
+                        Console.WriteLine(cl);
+                    }
+                    break;
+                case "5":
+                    Client newClient = new Client();
+                    Console.WriteLine("Enter first name");
+                    string firstName = Console.ReadLine();
+                    Console.WriteLine("Enter last name");
+                    string lastName = Console.ReadLine();
+                    Console.WriteLine("Enter year of birth");
+                    DateTime yearOfBirth = DateTime.Parse(Console.ReadLine());
+                    newClient = new Client(firstName, lastName, yearOfBirth);
+                    carRentService.InsertClient(newClient);
                     break;
             }
-
-        }
+            }
     }
     public static ICarRentService SetupDependencies()
     {
-        IClientRepository clientRepository = new ClientsFileRepository("clients.csv");
-        ICarsRepository carsRepository = new CarsFileRepository("cars.csv");
+        //IClientRepository clientRepository = new ClientsFileRepository("clients.csv");
+        IClientRepository clientRepository = new ClientsDbRepository("Server=localhost;Database=car_rental_db;Trusted_Connection=True;");
+        //ICarsRepository carsRepository = new CarsFileRepository("cars.csv");
+        ICarsRepository carsRepository = new CarsDbRepository("Server=localhost;Database=car_rental_db;Trusted_Connection=True;");
         IClientService clientService = new ClientService(clientRepository);
         ICarsService carService = new CarsService(carsRepository);
         return new CarRentService(clientService, carService);

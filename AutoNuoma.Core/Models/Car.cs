@@ -16,6 +16,12 @@
             Model = model;
             RentPrice = rentPrice;
         }
+        public Car(string brand, string model, decimal rentPrice)
+        {
+            Brand = brand;
+            Model = model;
+            RentPrice = rentPrice;
+        }
 
         public string getInfo()
         {

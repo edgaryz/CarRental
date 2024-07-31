@@ -10,6 +10,10 @@ namespace CarRental.Core.Contracts
         List<RentOrder> GetAllOrders();
         List<Car> GetAllCars();
         void AddNewCar(Car car);
-        List<Client> GetAllClients();
+        List<Client> GetAllClientsFromFile();
+        List<Client> GetAllClientsFromDb();
+        void InsertClient(Client client);
+        List<ElectricCar> GetAllElectricCars();
+        List<OilFuelCar> GetAllOilFuelCars();
     }
 }

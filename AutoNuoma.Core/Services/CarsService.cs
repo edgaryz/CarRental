@@ -11,11 +11,6 @@ namespace CarRental.Core.Services
             _carsRepository = carsRepository;
         }
 
-        public void AddCar(Car car)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Car> FindCarByBrand(string brand)
         {
             List<Car> searchResult = new List<Car>();
@@ -33,14 +28,23 @@ namespace CarRental.Core.Services
             return _carsRepository.ReadCars();
         }
 
-        public void ReadFile()
+        public List<ElectricCar> GetAllElectricCars()
         {
-            throw new NotImplementedException();
+            return _carsRepository.GetAllElectricCars();
         }
 
-        public void WriteFile()
+        public List<OilFuelCar> GetAllOilFuelCars()
         {
-            throw new NotImplementedException();
+            return _carsRepository.GetAllOilFuelCars();
         }
+
+        public void InsertNewCar(Car car)
+        {
+            if (car is ElectricCar)
+                _carsRepository.InsertElectricCar((ElectricCar)car);
+            else
+                _carsRepository.InsertOilFuelCar((OilFuelCar)car);
+        }
+
     }
 }

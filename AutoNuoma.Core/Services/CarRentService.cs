@@ -64,13 +64,32 @@ namespace CarRental.Core.Services
 
         public void AddNewCar(Car car)
         {
-            _carsService.AddCar(car);
+            _carsService.InsertNewCar(car);
         }
 
-        public List<Client> GetAllClients()
+        public List<Client> GetAllClientsFromFile()
         {
-            return _clientService.GetAllClients();
+            return _clientService.GetAllClientsFromFile();
         }
 
+        public List<ElectricCar> GetAllElectricCars()
+        {
+           return _carsService.GetAllElectricCars();
+        }
+
+        public List<OilFuelCar> GetAllOilFuelCars()
+        {
+            return _carsService.GetAllOilFuelCars();
+        }
+
+        public List<Client> GetAllClientsFromDb()
+        {
+            return _clientService.GetAllClientsFromDb();
+        }
+
+        public void InsertClient(Client client)
+        {
+            _clientService.InsertClient(client);
+        }
     }
 }

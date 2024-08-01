@@ -15,5 +15,7 @@ namespace CarRental.Core.Contracts
         void InsertClient(Client client);
         List<ElectricCar> GetAllElectricCars();
         List<OilFuelCar> GetAllOilFuelCars();
+        void CreateElectricCarOrder(RentOrder newOrder);
+        void CreateOilFuelCarOrder(RentOrder newOrder);
     }
 }

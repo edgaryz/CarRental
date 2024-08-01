@@ -17,12 +17,28 @@
             OrderStartDate = orderStartDate;
             OrderDays = orderDays;
         }
+        public RentOrder(int clientId, int electricCarId, DateTime orderStartDate, int orderDays)
+        {
+            ClientId = clientId;
+            ElectricCarId = electricCarId;
+            OrderStartDate = orderStartDate;
+            OrderDays = orderDays;
+        }
+        public RentOrder(int clientId, DateTime orderStartDate, int orderDays, int oilFuelCarId)
+        {
+            ClientId = clientId;
+            OilFuelCarId = oilFuelCarId;
+            OrderStartDate = orderStartDate;
+            OrderDays = orderDays;
+        }
+
         public decimal CountRentPrice()
         {
             decimal total = 0;
             total = Car.RentPrice * OrderDays;
             return total;
         }
+
         public DateTime GetOrderEndDate()
         {
             return OrderStartDate.AddDays(OrderDays);

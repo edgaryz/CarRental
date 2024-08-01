@@ -93,5 +93,15 @@ namespace CarRental.Core.Services
         {
             _clientService.InsertClient(client);
         }
+
+        public void CreateElectricCarOrder(RentOrder newOrder)
+        {
+            _rentOrderService.CreateElectricCarOrder(newOrder);
+        }
+
+        public void CreateOilFuelCarOrder(RentOrder newOrder)
+        {
+            _rentOrderService.CreateOilFuelCarOrder(newOrder);
+        }
     }
 }

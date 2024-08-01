@@ -5,7 +5,8 @@ namespace CarRental.Core.Contracts
     public interface IRentOrderRepository
     {
         List<RentOrder> GetAllOrdersFromDb();
-        void CreateOrder(RentOrder newOrder, Car car, Client client);
+        void CreateElectricCarOrder(RentOrder newOrder);
+        void CreateOilFuelCarOrder(RentOrder newOrder);
         List<RentOrder> GetOrderByClient(Client client);
     }
 }

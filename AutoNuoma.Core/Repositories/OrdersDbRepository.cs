@@ -14,21 +14,26 @@ namespace CarRental.Core.Repositories
         {
             _dbConnectionString = connectionString;
         }
-        public void CreateOrder(RentOrder newOrder, Car car, Client client)
+        public void CreateElectricCarOrder(RentOrder newOrder)
         {
 
-            //reikia GetClientIdByFirstNameAndLastName()
-            //int clientId = client.Id;
-            int clientId = 0;
-            string sqlCommand = "";
-            if (car is ElectricCar)
-            {
+            string sqlCommand = "INSERT INTO orders " +
+                "(client_id, ev_car_id, order_start_date, order_days)" +
+                "VALUES" +
+                "(@ClientId, @ElectricCarId, @OrderStartDate, @OrderDays)";
 
-            }
-            else
+            using (var connection = new SqlConnection(_dbConnectionString))
             {
-
+                connection.Execute(sqlCommand, newOrder);
             }
+        }
+        public void CreateOilFuelCarOrder(RentOrder newOrder)
+        {
+
+            string sqlCommand = "INSERT INTO orders " +
+                "(client_id, oil_car_id, order_start_date, order_days)" +
+                "VALUES" +
+                "(@ClientId, @OilFuelCarId, @OrderStartDate, @OrderDays)";
 
             using (var connection = new SqlConnection(_dbConnectionString))
             {

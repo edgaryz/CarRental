@@ -20,10 +20,14 @@ public class Program
             Console.WriteLine("4. GetAllClientsFromDb");
             Console.WriteLine("5. InsertNewClient");
             Console.WriteLine("6. GetAllOrders");
+            Console.WriteLine("7. InsertNewOrder");
+            Console.WriteLine("0. Exit Program");
             Console.WriteLine("-------------------------");
             string choice = Console.ReadLine();
             switch (choice)
             {
+                case "0":
+                    return;
                 case "1":
                     List<ElectricCar> ev = carRentService.GetAllElectricCars();
                     foreach (ElectricCar e in ev)
@@ -45,7 +49,7 @@ public class Program
                     string fuelConsumption = "";
                     Console.WriteLine("Electric Car - 1  Oil Fuel Car - 2: ");
                     string type = Console.ReadLine();
-                    switch(type)
+                    switch (type)
                     {
                         case "1":
                             Console.WriteLine("Enter battery capacity");
@@ -64,7 +68,7 @@ public class Program
                     string model = Console.ReadLine();
                     Console.WriteLine("Enter car rent price");
                     decimal rentPrice = decimal.Parse(Console.ReadLine());
-                    switch(type)
+                    switch (type)
                     {
                         case "1":
                             newCar = new ElectricCar(brand, model, rentPrice, batteryCapacity, batteryChargingTime);
@@ -74,6 +78,7 @@ public class Program
                             break;
                     }
                     carRentService.AddNewCar(newCar);
+                    Console.WriteLine("Car creation successful!");
                     break;
                 case "4":
                     List<Client> clients = carRentService.GetAllClientsFromDb();
@@ -100,8 +105,57 @@ public class Program
                         Console.WriteLine(or);
                     }
                     break;
+                case "7":
+                    RentOrder newOrder = new RentOrder();
+                    Console.WriteLine("Enter Client ID");
+                    int newClientId = int.Parse(Console.ReadLine());
+                    int electricCarId = 0;
+                    int oilFuelCarId = 0;
+                    Console.WriteLine("Choose Car Type");
+                    Console.WriteLine("Electric Car - 1  Oil Fuel Car - 2: ");
+                    string orderCarType = Console.ReadLine();
+                    switch (orderCarType)
+                    {
+                        case "1":
+                            List<ElectricCar> evList = carRentService.GetAllElectricCars();
+                            foreach (ElectricCar e in evList)
+                            {
+                                Console.WriteLine(e);
+                            }
+                            Console.WriteLine("----------------------");
+                            Console.WriteLine("Enter EV ID");
+                            electricCarId = int.Parse(Console.ReadLine());
+                            break;
+                        case "2":
+                            List<OilFuelCar> ofcList = carRentService.GetAllOilFuelCars();
+                            foreach (OilFuelCar v in ofcList)
+                            {
+                                Console.WriteLine(v);
+                            }
+                            Console.WriteLine("----------------------");
+                            Console.WriteLine("Enter Oil Fuel Car ID");
+                            oilFuelCarId = int.Parse(Console.ReadLine());
+                            break;
+                    }
+                    Console.WriteLine("Enter Order Start Date");
+                    DateTime OrderStartDate = DateTime.Parse(Console.ReadLine());
+                    Console.WriteLine("Enter Order Days");
+                    int newOrderDays = int.Parse(Console.ReadLine());
+                    switch (orderCarType)
+                    {
+                        case "1":
+                            newOrder = new RentOrder(newClientId, electricCarId, OrderStartDate, newOrderDays);
+                            carRentService.CreateElectricCarOrder(newOrder);
+                            break;
+                        case "2":
+                            newOrder = new RentOrder(newClientId, OrderStartDate, newOrderDays, oilFuelCarId);
+                            carRentService.CreateOilFuelCarOrder(newOrder);
+                            break;
+                    }
+                    Console.WriteLine("Order creation successful!");
+                    break;
             }
-            }
+        }
     }
     public static ICarRentService SetupDependencies()
     {

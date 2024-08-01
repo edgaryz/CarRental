@@ -31,5 +31,15 @@ namespace CarRental.Core.Services
             }
             return orders;
         }
+
+        public void CreateElectricCarOrder(RentOrder newOrder)
+        {
+            _rentOrderRepository.CreateElectricCarOrder(newOrder);
+        }
+
+        public void CreateOilFuelCarOrder(RentOrder newOrder)
+        {
+            _rentOrderRepository.CreateOilFuelCarOrder(newOrder);
+        }
     }
 }

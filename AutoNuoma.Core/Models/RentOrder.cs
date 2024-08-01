@@ -4,6 +4,9 @@
     {
         public Client Client { get; set; }
         public Car Car { get; set; }
+        public int ClientId { get; set; }
+        public int ElectricCarId { get; set; }
+        public int OilFuelCarId { get; set; }
         public DateTime OrderStartDate { get; set; }
         public int OrderDays { get; set; }
         public RentOrder() { }
@@ -23,6 +26,16 @@
         public DateTime GetOrderEndDate()
         {
             return OrderStartDate.AddDays(OrderDays);
+        }
+
+        public override string ToString()
+        {
+            int rentedCarIdByType = 0;
+            if (Car is ElectricCar)
+            {
+                rentedCarIdByType = Car.Id;
+            }
+            return $"{Client} ordered {Car} for {OrderDays} days";
         }
     }
 }

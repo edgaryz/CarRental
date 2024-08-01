@@ -21,6 +21,16 @@ namespace CarRental.Core.Repositories
             throw new NotImplementedException();
         }
 
+        public Car GetElectricCarById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Car GetOilFuelCarById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public void InsertElectricCar(ElectricCar ev)
         {
             throw new NotImplementedException();

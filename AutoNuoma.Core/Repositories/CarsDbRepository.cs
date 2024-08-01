@@ -66,5 +66,27 @@ namespace CarRental.Core.Repositories
                 connection.Execute(sqlCommand, v);
             }
         }
+
+        public Car GetElectricCarById(int id)
+        {
+            using IDbConnection dbConnection = new SqlConnection(_dbConnectionString);
+            dbConnection.Open();
+            var result = dbConnection.QueryFirst<ElectricCar>(
+                @"SELECT id, brand, model, rent_price AS RentPrice, battery_capacity AS BatteryCapacity, battery_charging_time AS BatteryChargingTime 
+                  FROM electric_cars WHERE id = @Id", new { Id = id });
+            dbConnection.Close();
+            return result;
+        }
+
+        public Car GetOilFuelCarById(int id)
+        {
+            using IDbConnection dbConnection = new SqlConnection(_dbConnectionString);
+            dbConnection.Open();
+            var result = dbConnection.QueryFirst<OilFuelCar>(
+                @"SELECT id, brand, model, rent_price AS RentPrice, fuel_consumption AS FuelConsumption 
+                  FROM oil_fuel_cars WHERE id = @Id", new { Id = id });
+            dbConnection.Close();
+            return result;
+        }
     }
 }

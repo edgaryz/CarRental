@@ -50,5 +50,16 @@ namespace CarRental.Core.Repositories
                 connection.Execute(sqlCommand, client);
             }
         }
+
+        public Client GetClientById(int id)
+        {
+            using IDbConnection dbConnection = new SqlConnection(_dbConnectionString);
+            dbConnection.Open();
+            var result = dbConnection.QueryFirst<Client>(
+                @"SELECT id, first_name AS FirstName, last_name AS LastName, year_of_birth AS YearOfBirth 
+                  FROM clients WHERE id = @Id", new { Id = id });
+            dbConnection.Close();
+            return result;
+        }
     }
 }

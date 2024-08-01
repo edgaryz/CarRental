@@ -2,10 +2,10 @@
 
 namespace CarRental.Core.Contracts
 {
-    public interface IOrderRepository
+    public interface IRentOrderRepository
     {
         List<RentOrder> GetAllOrdersFromDb();
-        void CreateOrder(RentOrder newOrder);
+        void CreateOrder(RentOrder newOrder, Car car, Client client);
         List<RentOrder> GetOrderByClient(Client client);
     }
 }

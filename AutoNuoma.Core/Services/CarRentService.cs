@@ -7,16 +7,18 @@ namespace CarRental.Core.Services
     {
         public readonly IClientService _clientService;
         public readonly ICarsService _carsService;
+        public readonly IRentOrderService _rentOrderService;
 
         private List<Car> AllCars = new List<Car>();
 
         private List<RentOrder> AllOrders = new List<RentOrder>();
 
         public CarRentService() { }
-        public CarRentService(IClientService clientService, ICarsService carsService)
+        public CarRentService(IClientService clientService, ICarsService carsService, IRentOrderService rentOrderService)
         {
             _clientService = clientService;
             _carsService = carsService;
+            _rentOrderService = rentOrderService;
         }
         public void CountTotalRentPrice()
         {
@@ -47,7 +49,7 @@ namespace CarRental.Core.Services
 
         public List<RentOrder> GetAllOrders()
         {
-            throw new NotImplementedException();
+            return _rentOrderService.GetAllOrders();
         }
 
         public List<RentOrder> GetOrderByClient(Client client)

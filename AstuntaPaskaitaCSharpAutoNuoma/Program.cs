@@ -19,6 +19,8 @@ public class Program
             Console.WriteLine("3. InsertNewCar");
             Console.WriteLine("4. GetAllClientsFromDb");
             Console.WriteLine("5. InsertNewClient");
+            Console.WriteLine("6. GetAllOrders");
+            Console.WriteLine("-------------------------");
             string choice = Console.ReadLine();
             switch (choice)
             {
@@ -91,6 +93,13 @@ public class Program
                     newClient = new Client(firstName, lastName, yearOfBirth);
                     carRentService.InsertClient(newClient);
                     break;
+                case "6":
+                    List<RentOrder> orders = carRentService.GetAllOrders();
+                    foreach (RentOrder or in orders)
+                    {
+                        Console.WriteLine(or);
+                    }
+                    break;
             }
             }
     }
@@ -102,6 +111,8 @@ public class Program
         ICarsRepository carsRepository = new CarsDbRepository("Server=localhost;Database=car_rental_db;Trusted_Connection=True;");
         IClientService clientService = new ClientService(clientRepository);
         ICarsService carService = new CarsService(carsRepository);
-        return new CarRentService(clientService, carService);
+        IRentOrderRepository rentOrderRepository = new OrdersDbRepository("Server=localhost;Database=car_rental_db;Trusted_Connection=True;");
+        IRentOrderService rentOrderService = new RentOrderService(rentOrderRepository, carsRepository, clientRepository);
+        return new CarRentService(clientService, carService, rentOrderService);
     }
 }

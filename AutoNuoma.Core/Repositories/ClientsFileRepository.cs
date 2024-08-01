@@ -16,6 +16,11 @@ namespace CarRental.Core.Repositories
             throw new NotImplementedException();
         }
 
+        public Client GetClientById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public void InsertClient(Client client)
         {
             throw new NotImplementedException();

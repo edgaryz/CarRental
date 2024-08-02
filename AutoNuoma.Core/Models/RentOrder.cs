@@ -9,6 +9,7 @@
         public int OilFuelCarId { get; set; }
         public DateTime OrderStartDate { get; set; }
         public int OrderDays { get; set; }
+        public int EmployeeId { get; set; }
         public RentOrder() { }
         public RentOrder(Client client, Car car, DateTime orderStartDate, int orderDays)
         {
@@ -17,19 +18,21 @@
             OrderStartDate = orderStartDate;
             OrderDays = orderDays;
         }
-        public RentOrder(int clientId, int electricCarId, DateTime orderStartDate, int orderDays)
+        public RentOrder(int clientId, int electricCarId, DateTime orderStartDate, int orderDays, int employeeId)
         {
             ClientId = clientId;
             ElectricCarId = electricCarId;
             OrderStartDate = orderStartDate;
             OrderDays = orderDays;
+            EmployeeId = employeeId;
         }
-        public RentOrder(int clientId, DateTime orderStartDate, int orderDays, int oilFuelCarId)
+        public RentOrder(int clientId, DateTime orderStartDate, int orderDays, int employeeId, int oilFuelCarId)
         {
             ClientId = clientId;
             OilFuelCarId = oilFuelCarId;
             OrderStartDate = orderStartDate;
             OrderDays = orderDays;
+            EmployeeId = employeeId;
         }
 
         public decimal CountRentPrice()
@@ -46,12 +49,7 @@
 
         public override string ToString()
         {
-            int rentedCarIdByType = 0;
-            if (Car is ElectricCar)
-            {
-                rentedCarIdByType = Car.Id;
-            }
-            return $"{Client} ordered {Car} for {OrderDays} days";
+            return $"{Client} ordered {Car} for {OrderDays} days. Order was managed by employee by ID: {EmployeeId}.";
         }
     }
 }

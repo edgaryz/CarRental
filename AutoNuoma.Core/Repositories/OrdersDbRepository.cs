@@ -18,9 +18,9 @@ namespace CarRental.Core.Repositories
         {
 
             string sqlCommand = "INSERT INTO orders " +
-                "(client_id, ev_car_id, order_start_date, order_days)" +
+                "(client_id, ev_car_id, order_start_date, order_days, employee_id)" +
                 "VALUES" +
-                "(@ClientId, @ElectricCarId, @OrderStartDate, @OrderDays)";
+                "(@ClientId, @ElectricCarId, @OrderStartDate, @OrderDays, @EmployeeId)";
 
             using (var connection = new SqlConnection(_dbConnectionString))
             {
@@ -31,9 +31,9 @@ namespace CarRental.Core.Repositories
         {
 
             string sqlCommand = "INSERT INTO orders " +
-                "(client_id, oil_car_id, order_start_date, order_days)" +
+                "(client_id, oil_car_id, order_start_date, order_days, employee_id)" +
                 "VALUES" +
-                "(@ClientId, @OilFuelCarId, @OrderStartDate, @OrderDays)";
+                "(@ClientId, @OilFuelCarId, @OrderStartDate, @OrderDays, @EmployeeId)";
 
             using (var connection = new SqlConnection(_dbConnectionString))
             {
@@ -46,7 +46,7 @@ namespace CarRental.Core.Repositories
             using IDbConnection dbConnection = new SqlConnection(_dbConnectionString);
             dbConnection.Open();
             var result = dbConnection.Query<RentOrder>(
-                @"SELECT client_id As ClientId, ev_car_id AS ElectricCarId, oil_car_id AS OilFuelCarId, order_start_date AS OrderStartDate, order_days AS OrderDays FROM orders").ToList();
+                @"SELECT client_id As ClientId, ev_car_id AS ElectricCarId, oil_car_id AS OilFuelCarId, order_start_date AS OrderStartDate, order_days AS OrderDays, employee_id AS EmployeeId FROM orders").ToList();
             dbConnection.Close();
             return result;
         }

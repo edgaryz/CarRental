@@ -141,14 +141,16 @@ public class Program
                     DateTime OrderStartDate = DateTime.Parse(Console.ReadLine());
                     Console.WriteLine("Enter Order Days");
                     int newOrderDays = int.Parse(Console.ReadLine());
+                    Console.WriteLine("Enter cooperating employee ID");
+                    int employeeId = int.Parse(Console.ReadLine());
                     switch (orderCarType)
                     {
                         case "1":
-                            newOrder = new RentOrder(newClientId, electricCarId, OrderStartDate, newOrderDays);
+                            newOrder = new RentOrder(newClientId, electricCarId, OrderStartDate, newOrderDays, employeeId);
                             carRentService.CreateElectricCarOrder(newOrder);
                             break;
                         case "2":
-                            newOrder = new RentOrder(newClientId, OrderStartDate, newOrderDays, oilFuelCarId);
+                            newOrder = new RentOrder(newClientId, OrderStartDate, newOrderDays, employeeId, oilFuelCarId);
                             carRentService.CreateOilFuelCarOrder(newOrder);
                             break;
                     }

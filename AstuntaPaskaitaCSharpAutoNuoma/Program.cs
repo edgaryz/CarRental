@@ -161,9 +161,9 @@ public class Program
                     Console.WriteLine("1. GetAllEmployeesFromDb");
                     Console.WriteLine("2. GetEmployeeById");
                     Console.WriteLine("3. InsertNewEmployee");
-                    Console.WriteLine("4. UpdateEmployee TODO");
-                    Console.WriteLine("5. DeleteEmployee TODO");
-                    Console.WriteLine("0. Main Menu TODO");
+                    Console.WriteLine("4. UpdateEmployee");
+                    Console.WriteLine("5. DeleteEmployee");
+                    Console.WriteLine("0. Main Menu");
                     Console.WriteLine("-------------------------");
                     string choiceEmployees = Console.ReadLine();
                     switch (choiceEmployees)
@@ -199,12 +199,36 @@ public class Program
                             Console.WriteLine("Employee creation successful!");
                             break;
                         case "4":
-                            //TODO
                             //UpdateEmployee
+                            Console.WriteLine("Please choose employee you want to edit");
+                            List<Employee> employeeListToEdit = carRentService.GetAllEmployeesFromDb();
+                            foreach (Employee emp in employeeListToEdit)
+                            {
+                                Console.WriteLine(emp);
+                            }
+                            int employeeToEdit = int.Parse(Console.ReadLine());
+                            Employee newEditedEmployee = new Employee();
+                            newEditedEmployee.Id = employeeToEdit;
+                            Console.WriteLine("Enter first name");
+                            newEditedEmployee.FirstName = Console.ReadLine();
+                            Console.WriteLine("Enter last name");
+                            newEditedEmployee.LastName = Console.ReadLine();
+                            Console.WriteLine("Enter position");
+                            newEditedEmployee.Position = ((Position)int.Parse(Console.ReadLine()));
+                            carRentService.UpdateEmployee(newEditedEmployee);
+                            Console.WriteLine("Employee update successful!");
                             break;
                         case "5":
-                            //TODO
                             //DeleteEmployee
+                            Console.WriteLine("Please choose employee you want to delete");
+                            List<Employee> employeeListToDelete = carRentService.GetAllEmployeesFromDb();
+                            foreach (Employee emp in employeeListToDelete)
+                            {
+                                Console.WriteLine(emp);
+                            }
+                            int employeeToDelete = int.Parse(Console.ReadLine());
+                            carRentService.DeleteEmployee(employeeToDelete);
+                            Console.WriteLine("Employee delete successful!");
                             break;
 
                     }

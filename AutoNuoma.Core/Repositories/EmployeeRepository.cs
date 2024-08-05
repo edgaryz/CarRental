@@ -17,7 +17,7 @@ namespace CarRental.Core.Repositories
         {
             using IDbConnection dbConnection = new SqlConnection(_dbConnectionString);
             dbConnection.Open();
-            var result = dbConnection.Query<Employee>(@"SELECT first_name AS FirstName, last_name AS LastName, position FROM employees").ToList();
+            var result = dbConnection.Query<Employee>(@"SELECT id, first_name AS FirstName, last_name AS LastName, position FROM employees").ToList();
             dbConnection.Close();
             return result;
         }
@@ -45,9 +45,7 @@ namespace CarRental.Core.Repositories
         public void UpdateEmployee(Employee employee)
         {
             string sqlCommand = "UPDATE employees SET " +
-                "first_name = @FirstName" +
-                "last_name = @LastName" +
-                "position = @Position" +
+                "first_name = @FirstName, last_name = @LastName, position = @Position " +
                 "WHERE id = @Id";
             using (var connection = new SqlConnection(_dbConnectionString))
             {

@@ -37,7 +37,7 @@ namespace CarRental.Core.Models
         }
         public override string ToString()
         {
-            return $"Employee: {FirstName} {LastName}, {Position}";
+            return $"Employee: {Id} {FirstName} {LastName}, {Position}";
         }
     }
 }

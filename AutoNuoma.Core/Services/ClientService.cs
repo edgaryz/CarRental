@@ -7,9 +7,9 @@ namespace CarRental.Core.Services
     {
         private readonly IClientRepository _clientRepository;
         private List<Client> AllClients = new List<Client>();
-        public ClientService(IClientRepository clientRepositor)
+        public ClientService(IClientRepository clientRepository)
         {
-            _clientRepository = clientRepositor;
+            _clientRepository = clientRepository;
         }
         public void AddClient(Client client)
         {

@@ -44,7 +44,6 @@ namespace CarRental.Core.Repositories
                 "(first_name, last_name, year_of_birth)" +
                 "VALUES" +
                 "(@FirstName, @LastName, @YearOfBirth)";
-
             using (var connection = new SqlConnection(_dbConnectionString))
             {
                 connection.Execute(sqlCommand, client);

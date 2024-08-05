@@ -16,5 +16,24 @@ namespace CarRental.Core.Models
             LastName = lastName;
             Position = position;
         }
+        public Employee(int id, string firstName, string lastName, Position position)
+        {
+            Id = id;
+            FirstName = firstName;
+            LastName = lastName;
+            Position = position;
+        }
+
+        public double CountSalary(double baseSalary, int completedOrders = 0)
+        {
+            if (Position == Position.Dealer)
+            {
+                return baseSalary + (completedOrders * 7);
+            }
+            else
+            {
+                return baseSalary;
+            }
+        }
     }
 }

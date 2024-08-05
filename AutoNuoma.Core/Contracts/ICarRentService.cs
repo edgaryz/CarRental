@@ -1,4 +1,5 @@
 ﻿using CarRental.Core.Models;
+using CarRental.Core.Services;
 
 namespace CarRental.Core.Contracts
 {
@@ -17,5 +18,10 @@ namespace CarRental.Core.Contracts
         List<OilFuelCar> GetAllOilFuelCars();
         void CreateElectricCarOrder(RentOrder newOrder);
         void CreateOilFuelCarOrder(RentOrder newOrder);
+        List<Employee> GetAllEmployeesFromDb();
+        Employee GetEmployeeById(int id);
+        void InsertEmployee(Employee employee);
+        void UpdateEmployee(Employee employee);
+        void DeleteEmployee(int id);
     }
 }

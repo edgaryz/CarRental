@@ -32,8 +32,9 @@ public class Program
                     Console.WriteLine("1. GetAllElectricCars");
                     Console.WriteLine("2. GetAllOilFuelCars");
                     Console.WriteLine("3. InsertNewCar");
-                    Console.WriteLine("4. UpdateCarInfo TODO");
-                    Console.WriteLine("5. DeleteCar TODO");
+                    Console.WriteLine("4. UpdateElectricCarInfo TODO");
+                    Console.WriteLine("5. UpdateOilFuelCarInfo TODO");
+                    Console.WriteLine("6. DeleteCar TODO");
                     Console.WriteLine("0. Main Menu");
                     Console.WriteLine("-------------------------");
                     string choiceCars = Console.ReadLine();
@@ -99,10 +100,75 @@ public class Program
                             break;
                         case "4":
                             //TODO
-                            //UpdateCarInfo
-
+                            //UpdateElectricCarInfo
+                            Console.WriteLine("Please choose electric car you want to edit");
+                            List<ElectricCar> electricCarsToEdit = carRentService.GetAllElectricCars();
+                            foreach (ElectricCar eCarToEdit in electricCarsToEdit)
+                            {
+                                Console.WriteLine(eCarToEdit);
+                            }
+                            int electricCarToEdit = int.Parse(Console.ReadLine());
+                            ElectricCar newEditedElectricCar = new ElectricCar();
+                            ElectricCar previousElectricCarInfo = carRentService.GetElectricCarById(electricCarToEdit);
+                            newEditedElectricCar.Id = electricCarToEdit;
+                            Console.WriteLine("Enter brand (to skip press ENTER)");
+                            string newEvBrand = Console.ReadLine();
+                            if (newEvBrand == "")
+                            {
+                                newEditedElectricCar.Brand = previousElectricCarInfo.Brand;
+                            }
+                            else
+                            {
+                                newEditedElectricCar.Brand = newEvBrand;
+                            }
+                            Console.WriteLine("Enter model (to skip press ENTER)");
+                            string newEvModel = Console.ReadLine();
+                            if (newEvModel == "")
+                            {
+                                newEditedElectricCar.Model = previousElectricCarInfo.Model;
+                            }
+                            else
+                            {
+                                newEditedElectricCar.Model = newEvModel;
+                            }
+                            Console.WriteLine("Enter rent price (to skip press ENTER)");
+                            decimal newEvRentPrice = decimal.Parse(Console.ReadLine());/////////////TODO
+                            if (newEvRentPrice < 0)
+                            {
+                                newEditedElectricCar.RentPrice = previousElectricCarInfo.RentPrice;
+                            }
+                            else
+                            {
+                                newEditedElectricCar.RentPrice = newEvRentPrice;
+                            }
+                            Console.WriteLine("Enter battery capacity (to skip press ENTER)");
+                            string newEvBatteryCap = Console.ReadLine();
+                            if (newEvBatteryCap == "")
+                            {
+                                newEditedElectricCar.BatteryCapacity = previousElectricCarInfo.BatteryCapacity;
+                            }
+                            else
+                            {
+                                newEditedElectricCar.BatteryCapacity = newEvBatteryCap;
+                            }
+                            Console.WriteLine("Enter battery charging time (to skip type -1)");
+                            int newEvBatteryCharge = int.Parse(Console.ReadLine());
+                            if (newEvBatteryCharge < 0)
+                            {
+                                newEditedElectricCar.BatteryChargingTime = previousElectricCarInfo.BatteryChargingTime;
+                            }
+                            else
+                            {
+                                newEditedElectricCar.BatteryChargingTime = newEvBatteryCharge;
+                            }
+                            Console.WriteLine("Electric car update successful!");
                             break;
                         case "5":
+                            //TODO
+                            //UpdateOilFuelCarInfo
+
+                            break;
+                        case "6":
                             //TODO
                             //DeleteCar
 
@@ -208,13 +274,39 @@ public class Program
                             }
                             int employeeToEdit = int.Parse(Console.ReadLine());
                             Employee newEditedEmployee = new Employee();
+                            Employee previousEmployeeInfo = carRentService.GetEmployeeById(employeeToEdit);
                             newEditedEmployee.Id = employeeToEdit;
-                            Console.WriteLine("Enter first name");
-                            newEditedEmployee.FirstName = Console.ReadLine();
-                            Console.WriteLine("Enter last name");
-                            newEditedEmployee.LastName = Console.ReadLine();
-                            Console.WriteLine("Enter position");
-                            newEditedEmployee.Position = ((Position)int.Parse(Console.ReadLine()));
+                            Console.WriteLine("Enter first name (to skip press ENTER)");
+                            string newEmpFirstName = Console.ReadLine();
+                            if (newEmpFirstName == "")
+                            {
+                                newEditedEmployee.FirstName = previousEmployeeInfo.FirstName;
+                            }
+                            else
+                            {
+                                newEditedEmployee.FirstName = newEmpFirstName;
+                            }
+                            Console.WriteLine("Enter last name (to skip press ENTER)");
+                            string newEmpLastName = Console.ReadLine();
+                            if (newEmpLastName == "")
+                            {
+                                newEditedEmployee.LastName = previousEmployeeInfo.LastName;
+                            }
+                            else
+                            {
+                                newEditedEmployee.LastName = newEmpLastName;
+                            }
+                            Console.WriteLine("Enter position (to skip type -1)");
+                            Console.WriteLine("CEO=0, Dealer=1, Mechanic=2");
+                            int newEmpPosition = int.Parse(Console.ReadLine());
+                            if (newEmpPosition < 0 || newEmpPosition > 2)
+                            {
+                                newEditedEmployee.Position = previousEmployeeInfo.Position;
+                            }
+                            else
+                            {
+                                newEditedEmployee.Position = ((Position)(newEmpPosition));
+                            }
                             carRentService.UpdateEmployee(newEditedEmployee);
                             Console.WriteLine("Employee update successful!");
                             break;

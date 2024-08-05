@@ -111,5 +111,15 @@ namespace CarRental.Core.Repositories
                 }
             }
         }
+
+        ElectricCar ICarsRepository.GetElectricCarById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        OilFuelCar ICarsRepository.GetOilFuelCarById(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

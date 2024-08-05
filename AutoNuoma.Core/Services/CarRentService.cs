@@ -1,6 +1,5 @@
 ﻿using CarRental.Core.Contracts;
 using CarRental.Core.Models;
-using CarRental.Core.Repositories;
 
 namespace CarRental.Core.Services
 {
@@ -69,11 +68,19 @@ namespace CarRental.Core.Services
         }
         public List<ElectricCar> GetAllElectricCars()
         {
-           return _carsService.GetAllElectricCars();
+            return _carsService.GetAllElectricCars();
         }
         public List<OilFuelCar> GetAllOilFuelCars()
         {
             return _carsService.GetAllOilFuelCars();
+        }
+        public ElectricCar GetElectricCarById(int id)
+        {
+            return _carsService.GetElectricCarById(id);
+        }
+        public OilFuelCar GetOilFuelCarById(int id)
+        {
+            return _carsService.GetOilFuelCarById(id);
         }
         public List<Client> GetAllClientsFromDb()
         {

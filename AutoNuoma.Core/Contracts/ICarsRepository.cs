@@ -10,8 +10,8 @@ namespace CarRental.Core.Contracts
         List<OilFuelCar> GetAllOilFuelCars();
         void InsertElectricCar(ElectricCar ev);
         void InsertOilFuelCar(OilFuelCar v);
-        Car GetElectricCarById(int id);
-        Car GetOilFuelCarById(int id);
+        ElectricCar GetElectricCarById(int id);
+        OilFuelCar GetOilFuelCarById(int id);
 
     }
 }

@@ -38,6 +38,16 @@ namespace CarRental.Core.Services
             return _carsRepository.GetAllOilFuelCars();
         }
 
+        public ElectricCar GetElectricCarById(int id)
+        {
+            return _carsRepository.GetElectricCarById(id);
+        }
+
+        public OilFuelCar GetOilFuelCarById(int id)
+        {
+            return _carsRepository.GetOilFuelCarById(id);
+        }
+
         public void InsertNewCar(Car car)
         {
             if (car is ElectricCar)

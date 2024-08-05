@@ -35,5 +35,9 @@ namespace CarRental.Core.Models
                 return baseSalary;
             }
         }
+        public override string ToString()
+        {
+            return $"Employee: {FirstName} {LastName}, {Position}";
+        }
     }
 }

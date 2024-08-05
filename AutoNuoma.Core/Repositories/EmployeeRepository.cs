@@ -17,7 +17,7 @@ namespace CarRental.Core.Repositories
         {
             using IDbConnection dbConnection = new SqlConnection(_dbConnectionString);
             dbConnection.Open();
-            var result = dbConnection.Query<Employee>(@"SELECT employee_id, base_salary FROM employees").ToList();
+            var result = dbConnection.Query<Employee>(@"SELECT first_name AS FirstName, last_name AS LastName, position FROM employees").ToList();
             dbConnection.Close();
             return result;
         }

@@ -1,4 +1,5 @@
 ﻿using CarRental.Core.Contracts;
+using CarRental.Core.Enums;
 using CarRental.Core.Models;
 using CarRental.Core.Repositories;
 using CarRental.Core.Services;
@@ -157,9 +158,9 @@ public class Program
                     break;
                 case "3":
                     //Employees Menu
-                    Console.WriteLine("1. GetAllEmployeesFromDb TODO");
-                    Console.WriteLine("2. GetEmployeeById TODO");
-                    Console.WriteLine("3. InsertNewEmployee TODO");
+                    Console.WriteLine("1. GetAllEmployeesFromDb");
+                    Console.WriteLine("2. GetEmployeeById");
+                    Console.WriteLine("3. InsertNewEmployee");
                     Console.WriteLine("4. UpdateEmployee TODO");
                     Console.WriteLine("5. DeleteEmployee TODO");
                     Console.WriteLine("0. Main Menu TODO");
@@ -171,27 +172,43 @@ public class Program
                             //Main Menu
                             break;
                         case "1":
-                            //TODO
                             //GetAllEmployeesFromDb
+                            List<Employee> employeeList = carRentService.GetAllEmployeesFromDb();
+                            foreach (Employee emp in employeeList)
+                            {
+                                Console.WriteLine(emp);
+                            }
                             break;
                         case "2":
-                            //TODO
                             //GetEmployeeById
+                            Console.WriteLine("Enter Employee ID");
+                            int employeeId = int.Parse(Console.ReadLine());
+                            Console.WriteLine(carRentService.GetEmployeeById(employeeId));
                             break;
                         case "3":
-                            //TODO
                             //InsertNewEmployee
+                            Employee newEmployee = new Employee();
+                            Console.WriteLine("Enter first name");
+                            string firstName = Console.ReadLine();
+                            Console.WriteLine("Enter last name");
+                            string lastName = Console.ReadLine();
+                            Console.WriteLine("Enter position");
+                            Position position = ((Position)int.Parse(Console.ReadLine()));
+                            newEmployee = new Employee(firstName, lastName, position);
+                            carRentService.InsertEmployee(newEmployee);
+                            Console.WriteLine("Employee creation successful!");
                             break;
                         case "4":
                             //TODO
-                            //InsertNewEmployee
+                            //UpdateEmployee
                             break;
                         case "5":
                             //TODO
-                            //InsertNewEmployee
+                            //DeleteEmployee
                             break;
 
-                    } break;
+                    }
+                    break;
                 case "4":
                     //Orders Menu
                     Console.WriteLine("1. GetAllOrders");

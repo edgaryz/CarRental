@@ -24,6 +24,7 @@ namespace CarRental.Core.Contracts
         void UpdateOilFuelCarInfo(OilFuelCar car);
         void CreateElectricCarOrder(RentOrder newOrder);
         void CreateOilFuelCarOrder(RentOrder newOrder);
+        RentOrder GetOrderById(int id);
         List<Employee> GetAllEmployeesFromDb();
         Employee GetEmployeeById(int id);
         void InsertEmployee(Employee employee);

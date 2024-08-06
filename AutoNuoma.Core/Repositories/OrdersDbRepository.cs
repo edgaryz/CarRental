@@ -55,5 +55,16 @@ namespace CarRental.Core.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public RentOrder GetOrderById(int id)
+        {
+            using IDbConnection dbConnection = new SqlConnection(_dbConnectionString);
+            dbConnection.Open();
+            var result = dbConnection.QueryFirst<RentOrder>(
+                @"SELECT id, client_id AS ClientId, ev_car_id AS ElectricCarId, oil_car_id AS OilFuelCarId, order_start_date AS OrderStartDate, order_days AS OrderDays, employee_id AS EmployeeId
+                  FROM clients WHERE id = @Id", new { Id = id });
+            dbConnection.Close();
+            return result;
+        }
     }
 }

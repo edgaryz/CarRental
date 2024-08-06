@@ -41,5 +41,10 @@ namespace CarRental.Core.Services
         {
             _rentOrderRepository.CreateOilFuelCarOrder(newOrder);
         }
+
+        public RentOrder GetOrderById(int id)
+        {
+            return _rentOrderRepository.GetOrderById(id);
+        }
     }
 }

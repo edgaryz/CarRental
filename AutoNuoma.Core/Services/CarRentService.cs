@@ -134,6 +134,11 @@ namespace CarRental.Core.Services
             _rentOrderService.CreateOilFuelCarOrder(newOrder);
         }
 
+        public RentOrder GetOrderById(int id)
+        {
+            return _rentOrderService.GetOrderById(id);
+        }
+
         public List<Employee> GetAllEmployeesFromDb()
         {
             return _employeeService.GetAllEmployeesFromDb();

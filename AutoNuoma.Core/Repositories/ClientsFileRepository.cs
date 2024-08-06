@@ -45,6 +45,11 @@ namespace CarRental.Core.Repositories
             return clients;
         }
 
+        public void UpdateClient(Client client)
+        {
+            throw new NotImplementedException();
+        }
+
         public void WriteClient(Client client)
         {
             throw new NotImplementedException();

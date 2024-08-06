@@ -77,6 +77,16 @@ namespace CarRental.Core.Repositories
             return cars;
         }
 
+        public void UpdateElectricCarInfo(ElectricCar car)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateOilFuelCarInfo(OilFuelCar car)
+        {
+            throw new NotImplementedException();
+        }
+
         public void WriteCars(List<Car> carList)
         {
             using (StreamWriter sw = new StreamWriter(_filePath, true))

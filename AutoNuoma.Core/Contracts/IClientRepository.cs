@@ -10,5 +10,6 @@ namespace CarRental.Core.Contracts
         List<Client> GetAllClientsFromDb();
         void InsertClient(Client client);
         Client GetClientById(int id);
+        void UpdateClient(Client client);
     }
 }

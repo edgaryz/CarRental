@@ -13,11 +13,15 @@ namespace CarRental.Core.Contracts
         void AddNewCar(Car car);
         List<Client> GetAllClientsFromFile();
         List<Client> GetAllClientsFromDb();
+        Client GetClientById(int id);
         void InsertClient(Client client);
+        void UpdateClient(Client client);
         List<ElectricCar> GetAllElectricCars();
         List<OilFuelCar> GetAllOilFuelCars();
         ElectricCar GetElectricCarById(int id);
         OilFuelCar GetOilFuelCarById(int id);
+        void UpdateElectricCarInfo(ElectricCar car);
+        void UpdateOilFuelCarInfo(OilFuelCar car);
         void CreateElectricCarOrder(RentOrder newOrder);
         void CreateOilFuelCarOrder(RentOrder newOrder);
         List<Employee> GetAllEmployeesFromDb();

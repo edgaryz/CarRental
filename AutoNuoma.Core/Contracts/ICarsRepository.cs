@@ -1,4 +1,5 @@
 ﻿using CarRental.Core.Models;
+using System.Data.SqlClient;
 
 namespace CarRental.Core.Contracts
 {
@@ -12,6 +13,7 @@ namespace CarRental.Core.Contracts
         void InsertOilFuelCar(OilFuelCar v);
         ElectricCar GetElectricCarById(int id);
         OilFuelCar GetOilFuelCarById(int id);
-
+        void UpdateElectricCarInfo(ElectricCar car);
+        void UpdateOilFuelCarInfo(OilFuelCar car);
     }
 }

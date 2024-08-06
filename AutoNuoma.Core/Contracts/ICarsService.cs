@@ -11,5 +11,7 @@ namespace CarRental.Core.Contracts
         void InsertNewCar(Car car);
         ElectricCar GetElectricCarById(int id);
         OilFuelCar GetOilFuelCarById(int id);
+        void UpdateElectricCarInfo(ElectricCar car);
+        void UpdateOilFuelCarInfo(OilFuelCar car);
     }
 }

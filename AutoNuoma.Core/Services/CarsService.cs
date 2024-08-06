@@ -56,5 +56,15 @@ namespace CarRental.Core.Services
                 _carsRepository.InsertOilFuelCar((OilFuelCar)car);
         }
 
+        public void UpdateElectricCarInfo(ElectricCar car)
+        {
+            _carsRepository.UpdateElectricCarInfo(car);
+        }
+
+        public void UpdateOilFuelCarInfo(OilFuelCar car)
+        {
+            _carsRepository.UpdateOilFuelCarInfo(car);
+        }
+
     }
 }

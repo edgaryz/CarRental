@@ -60,5 +60,16 @@ namespace CarRental.Core.Repositories
             dbConnection.Close();
             return result;
         }
+
+        public void UpdateClient(Client client)
+        {
+            string sqlCommand = "UPDATE clients SET " +
+                "first_name = @FirstName, last_name = @LastName, year_of_birth = @YearOfBirth " +
+                "WHERE id = @Id";
+            using (var connection = new SqlConnection(_dbConnectionString))
+            {
+                connection.Execute(sqlCommand, client);
+            }
+        }
     }
 }

@@ -13,14 +13,17 @@ namespace CarRental.Core.Repositories
         {
             _dbConnectionString = connectionString;
         }
+
         public void WriteCars(List<Car> carList)
         {
             throw new NotImplementedException();
         }
+
         public List<Car> ReadCars()
         {
             throw new NotImplementedException();
         }
+
         public List<ElectricCar> GetAllElectricCars()
         {
             using IDbConnection dbConnection = new SqlConnection(_dbConnectionString);
@@ -29,6 +32,7 @@ namespace CarRental.Core.Repositories
             dbConnection.Close();
             return result;
         }
+
         public List<OilFuelCar> GetAllOilFuelCars()
         {
             using IDbConnection dbConnection = new SqlConnection(_dbConnectionString);
@@ -37,6 +41,7 @@ namespace CarRental.Core.Repositories
             dbConnection.Close();
             return result;
         }
+
         public void InsertElectricCar(ElectricCar ev)
         {
             string sqlCommand = "INSERT INTO electric_cars " +
@@ -48,6 +53,7 @@ namespace CarRental.Core.Repositories
                 connection.Execute(sqlCommand, ev);
             }
         }
+
         public void InsertOilFuelCar(OilFuelCar v)
         {
             string sqlCommand = "INSERT INTO oil_fuel_cars " +
@@ -59,6 +65,7 @@ namespace CarRental.Core.Repositories
                 connection.Execute(sqlCommand, v);
             }
         }
+
         public ElectricCar GetElectricCarById(int id)
         {
             using IDbConnection dbConnection = new SqlConnection(_dbConnectionString);
@@ -69,6 +76,7 @@ namespace CarRental.Core.Repositories
             dbConnection.Close();
             return result;
         }
+
         public OilFuelCar GetOilFuelCarById(int id)
         {
             using IDbConnection dbConnection = new SqlConnection(_dbConnectionString);
@@ -79,6 +87,7 @@ namespace CarRental.Core.Repositories
             dbConnection.Close();
             return result;
         }
+
         public void UpdateElectricCarInfo(ElectricCar car)
         {
             string sqlCommand = "UPDATE electric_cars SET " +
@@ -89,6 +98,7 @@ namespace CarRental.Core.Repositories
                 connection.Execute(sqlCommand, car);
             }
         }
+
         public void UpdateOilFuelCarInfo(OilFuelCar car)
         {
             string sqlCommand = "UPDATE oil_fuel_cars SET " +
@@ -99,13 +109,23 @@ namespace CarRental.Core.Repositories
                 connection.Execute(sqlCommand, car);
             }
         }
-        public void DeleteEmployee(int id)//////////////
+
+/*        public void DeleteElectricCar(int id)
         {
-            string sqlCommand = "DELETE FROM employees WHERE id = @Id";
+            string sqlCommand = "DELETE FROM electric_cars WHERE id = @Id";
             using (var connection = new SqlConnection(_dbConnectionString))
             {
                 connection.Execute(sqlCommand, new { Id = id });
             }
         }
+
+        public void DeleteOilFuelCar(int id)
+        {
+            string sqlCommand = "DELETE FROM oil_fuel_cars WHERE id = @Id";
+            using (var connection = new SqlConnection(_dbConnectionString))
+            {
+                connection.Execute(sqlCommand, new { Id = id });
+            }
+        }*/
     }
 }

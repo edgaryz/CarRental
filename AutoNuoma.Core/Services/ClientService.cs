@@ -56,5 +56,14 @@ namespace CarRental.Core.Services
         {
             return _clientRepository.GetAllClientsFromDb();
         }
+
+        public Client GetClientById(int id)
+        {
+            return _clientRepository.GetClientById(id);
+        }
+        public void UpdateClient(Client client)
+        {
+            _clientRepository.UpdateClient(client);
+        }
     }
 }

@@ -1,0 +1,52 @@
+﻿@page
+@using CarRental.Core.Models
+@model ElectricCarsModel
+@{
+    ViewData["Title"] = "Electric Cars";
+    Layout = "Shared/_Layout";
+}
+
+
+<table class="my-table">
+    <tr class="my-table-row-headings">
+        <th>ID</th>
+        <th>Brand</th>
+        <th>Model</th>
+        <th>Rent price</th>
+        <th>Battery capacity</th>
+        <th>Battery recharge time</th>
+    </tr>
+    @foreach (ElectricCar ev in Model.allEV)
+    {
+        <tr class="my-table-row">
+            <td>@ev.Id</td>
+            <td>@ev.Brand</td>
+            <td>@ev.Model</td>
+            <td>@ev.RentPrice.ToString("F2")</td>
+            <td>@ev.BatteryCapacity</td>
+            <td>@ev.BatteryChargingTime</td>
+        </tr>
+    }
+</table>
+<br>
+<br>
+<h1>Insert form</h1>
+<h3>Please fill information below to create new Electric Car</h3>
+<form>
+    <label><b>Id</b></label><br>
+    <input type="text"><br>
+    <label><b>Brand</b></label><br>
+    <input type="text"><br>
+    <label><b>Model</b></label><br>
+    <input type="text"><br>
+    <label><b>Rent Price</b></label><br>
+    <input type="text"><br>
+    <label><b>Battery Capacity</b></label><br>
+    <input type="text"><br>
+    <label><b>Battery Charging Time</b></label><br>
+    <input type="text">
+    <br>
+    <input type="submit">
+</form>
+
+

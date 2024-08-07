@@ -1,0 +1,45 @@
+﻿@page
+@using CarRental.Core.Models
+@model CarRental.FrontEnd.Pages.OilFuelCarsModel
+@{
+    ViewData["Title"] = "Oil Fuel Cars";
+    Layout = "Shared/_Layout";
+}
+
+<table class="my-table">
+    <tr class="my-table-row-headings">
+        <th>ID</th>
+        <th>Brand</th>
+        <th>Model</th>
+        <th>Rent price</th>
+        <th>Fuel Consumption</th>
+    </tr>
+    @foreach (OilFuelCar ofc in Model.allOFC)
+    {
+        <tr class="my-table-row">
+            <td>@ofc.Id</td>
+            <td>@ofc.Brand</td>
+            <td>@ofc.Model</td>
+            <td>@ofc.RentPrice.ToString("F2")</td>
+            <td>@ofc.FuelConsumption</td>
+        </tr>
+    }
+</table>
+<br>
+<br>
+<h1>Insert form</h1>
+<h3>Please fill information below to create new Oil Fuel Car</h3>
+<form>
+    <label><b>Id</b></label><br>
+    <input type="text"><br>
+    <label><b>Brand</b></label><br>
+    <input type="text"><br>
+    <label><b>Model</b></label><br>
+    <input type="text"><br>
+    <label><b>Rent Price</b></label><br>
+    <input type="text"><br>
+    <label><b>Fuel Consumption</b></label><br>
+    <input type="text">
+    <br>
+    <input type="submit">
+</form>

@@ -1,0 +1,41 @@
+﻿@page
+@using CarRental.Core.Models
+@model CarRental.FrontEnd.Pages.ClientsModel
+@{
+    ViewData["Title"] = "Clients";
+    Layout = "Shared/_Layout";
+}
+
+<table class="my-table">
+    <tr class="my-table-row-headings">
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Year Of Birth</th>
+    </tr>
+    @foreach (Client client in Model.allClients)
+    {
+        <tr class="my-table-row">
+            <td>@client.Id</td>
+            <td>@client.FirstName</td>
+            <td>@client.LastName</td>
+            <td>@client.YearOfBirth.ToString("yyyy-MM-dd")</td>
+
+        </tr>
+    }
+</table>
+<br>
+<br>
+<h1>Insert form</h1>
+<h3>Please fill information below to create new Client</h3>
+<form>
+    <label><b>Id</b></label><br>
+    <input type="text"><br>
+    <label><b>First Name</b></label><br>
+    <input type="text"><br>
+    <label><b>Last Name</b></label><br>
+    <input type="text"><br>
+    <label><b>Year Of Birth</b></label><br>
+    <input type="text"><br>
+    <input type="submit">
+</form>

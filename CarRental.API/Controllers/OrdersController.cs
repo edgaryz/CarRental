@@ -54,7 +54,7 @@ namespace CarRental.API.Controllers
             }
         }
 
-        [HttpPut("UpdateClient")]///////////
+/*        [HttpPut("UpdateClient")]///////////
         public IActionResult UpdateClient(Client client)
         {
             try
@@ -66,6 +66,6 @@ namespace CarRental.API.Controllers
             {
                 return Problem();
             }
-        }
+        }*/
     }
 }

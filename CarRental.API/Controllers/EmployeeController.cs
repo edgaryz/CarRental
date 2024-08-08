@@ -13,25 +13,25 @@ namespace CarRental.API.Controllers
         }
 
         [HttpGet("GetAllEmployees")]
-        public IActionResult GetAllEmployees()
+        public async Task<IActionResult> GetAllEmployees()
         {
-            var allEmployees = _carRentService.GetAllEmployeesFromDb();
+            var allEmployees = await _carRentService.GetAllEmployeesFromDb();
             return Ok(allEmployees);
         }
 
         [HttpGet("GetEmployeeById")]
-        public IActionResult GetEmployeeById(int id)
+        public async Task<IActionResult> GetEmployeeById(int id)
         {
-            var employee = _carRentService.GetEmployeeById(id);
+            var employee = await _carRentService.GetEmployeeById(id);
             return Ok(employee);
         }
 
         [HttpPost("InsertEmployee")]
-        public IActionResult InsertEmployee(Employee employee)
+        public async Task<IActionResult> InsertEmployee(Employee employee)
         {
             try
             {
-                _carRentService.InsertEmployee(employee);
+                await _carRentService.InsertEmployee(employee);
                 return Ok();
             }
             catch
@@ -41,11 +41,11 @@ namespace CarRental.API.Controllers
         }
 
         [HttpPut("UpdateEmployee")]
-        public IActionResult UpdateEmployee(Employee employee)
+        public async Task<IActionResult> UpdateEmployee(Employee employee)
         {
             try
             {
-                _carRentService.UpdateEmployee(employee);
+                await _carRentService.UpdateEmployee(employee);
                 return Ok();
             }
             catch
@@ -53,5 +53,14 @@ namespace CarRental.API.Controllers
                 return Problem();
             }
         }
+
+        [HttpDelete("DeleteEmployee")]
+        public async Task<IActionResult> DeleteEmployee(int id)
+        {
+            await _carRentService.DeleteEmployee(id);
+            return Ok();
+        }
+
+        //ALGOS ENDPOINTS TODO
     }
 }

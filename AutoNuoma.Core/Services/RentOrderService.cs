@@ -15,7 +15,7 @@ namespace CarRental.Core.Services
             _clientRepository = clientRepository;
         }
 
-        public List<RentOrder> GetAllOrders()
+/*        public List<RentOrder> GetAllOrders()
         {
             var orders = _rentOrderRepository.GetAllOrdersFromDb();
             foreach (var order in orders) {
@@ -30,7 +30,7 @@ namespace CarRental.Core.Services
                 }
             }
             return orders;
-        }
+        }*/
 
         public void CreateElectricCarOrder(RentOrder newOrder)
         {

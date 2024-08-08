@@ -14,6 +14,113 @@ namespace CarRental.Core.Repositories
             _dbConnectionString = connectionString;
         }
 
+        //Electric Cars
+        public async Task<List<ElectricCar>> GetAllElectricCars()
+        {
+            using IDbConnection dbConnection = new SqlConnection(_dbConnectionString);
+            dbConnection.Open();
+            var result = await dbConnection.QueryAsync<ElectricCar>(@"SELECT id, brand, model, rent_price AS RentPrice, battery_capacity AS BatteryCapacity, battery_charging_time AS BatteryChargingTime FROM electric_cars");
+            dbConnection.Close();
+            return result.ToList();
+        }
+
+        public async Task<ElectricCar> GetElectricCarById(int id)
+        {
+            using IDbConnection dbConnection = new SqlConnection(_dbConnectionString);
+            dbConnection.Open();
+            var result = await dbConnection.QueryFirstAsync<ElectricCar>(
+                @"SELECT id, brand, model, rent_price AS RentPrice, battery_capacity AS BatteryCapacity, battery_charging_time AS BatteryChargingTime 
+                  FROM electric_cars WHERE id = @Id", new { Id = id });
+            dbConnection.Close();
+            return result;
+        }
+
+        public async Task InsertElectricCar(ElectricCar ev)
+        {
+            string sqlCommand = "INSERT INTO electric_cars " +
+                "(brand, model, rent_price, battery_capacity, battery_charging_time)" +
+                "VALUES" +
+                "(@Brand, @Model, @RentPrice, @BatteryCapacity, @BatteryChargingTime)";
+            using (var connection = new SqlConnection(_dbConnectionString))
+            {
+                await connection.ExecuteAsync(sqlCommand, ev);
+            }
+        }
+
+        public async Task UpdateElectricCar(ElectricCar car)
+        {
+            string sqlCommand = "UPDATE electric_cars SET " +
+                "brand = @Brand, model = @Model, rent_price = @RentPrice, battery_capacity = @BatteryCapacity, battery_charging_time = @BatteryChargingTime " +
+                "WHERE id = @Id";
+            using (var connection = new SqlConnection(_dbConnectionString))
+            {
+                await connection.ExecuteAsync(sqlCommand, car);
+            }
+        }
+
+        public async Task DeleteElectricCar(int id)
+        {
+            string sqlCommand = "DELETE FROM electric_cars WHERE id = @Id";
+            using (var connection = new SqlConnection(_dbConnectionString))
+            {
+                await connection.ExecuteAsync(sqlCommand, new { Id = id });
+            }
+        }
+
+        //Oil Fuel Cars
+        public async Task<List<OilFuelCar>> GetAllOilFuelCars()
+        {
+            using IDbConnection dbConnection = new SqlConnection(_dbConnectionString);
+            dbConnection.Open();
+            var result = await dbConnection.QueryAsync<OilFuelCar>(@"SELECT id, brand, model, rent_price AS RentPrice, fuel_consumption AS FuelConsumption FROM oil_fuel_cars");
+            dbConnection.Close();
+            return result.ToList();
+        }
+
+        public async Task<OilFuelCar> GetOilFuelCarById(int id)
+        {
+            using IDbConnection dbConnection = new SqlConnection(_dbConnectionString);
+            dbConnection.Open();
+            var result = await dbConnection.QueryFirstAsync<OilFuelCar>(
+                @"SELECT id, brand, model, rent_price AS RentPrice, fuel_consumption AS FuelConsumption 
+                  FROM oil_fuel_cars WHERE id = @Id", new { Id = id });
+            dbConnection.Close();
+            return result;
+        }
+
+        public async Task InsertOilFuelCar(OilFuelCar v)
+        {
+            string sqlCommand = "INSERT INTO oil_fuel_cars " +
+                "(brand, model, rent_price, fuel_consumption)" +
+                "VALUES" +
+                "(@Brand, @Model, @RentPrice, @FuelConsumption)";
+            using (var connection = new SqlConnection(_dbConnectionString))
+            {
+                await connection.ExecuteAsync(sqlCommand, v);
+            }
+        }
+
+        public async Task UpdateOilFuelCar(OilFuelCar car)
+        {
+            string sqlCommand = "UPDATE oil_fuel_cars SET " +
+                "brand = @Brand, model = @Model, rent_price = @RentPrice, fuel_consumption = @FuelConsumption " +
+                "WHERE id = @Id";
+            using (var connection = new SqlConnection(_dbConnectionString))
+            {
+                await connection.ExecuteAsync(sqlCommand, car);
+            }
+        }
+
+        public async Task DeleteOilFuelCar(int id)
+        {
+            string sqlCommand = "DELETE FROM oil_fuel_cars WHERE id = @Id";
+            using (var connection = new SqlConnection(_dbConnectionString))
+            {
+                await connection.ExecuteAsync(sqlCommand, new { Id = id });
+            }
+        }
+
+        //File System
         public void WriteCars(List<Car> carList)
         {
             throw new NotImplementedException();
@@ -23,109 +130,5 @@ namespace CarRental.Core.Repositories
         {
             throw new NotImplementedException();
         }
-
-        public List<ElectricCar> GetAllElectricCars()
-        {
-            using IDbConnection dbConnection = new SqlConnection(_dbConnectionString);
-            dbConnection.Open();
-            var result = dbConnection.Query<ElectricCar>(@"SELECT id, brand, model, rent_price AS RentPrice, battery_capacity AS BatteryCapacity, battery_charging_time AS BatteryChargingTime FROM electric_cars").ToList();
-            dbConnection.Close();
-            return result;
-        }
-
-        public List<OilFuelCar> GetAllOilFuelCars()
-        {
-            using IDbConnection dbConnection = new SqlConnection(_dbConnectionString);
-            dbConnection.Open();
-            var result = dbConnection.Query<OilFuelCar>(@"SELECT id, brand, model, rent_price AS RentPrice, fuel_consumption AS FuelConsumption FROM oil_fuel_cars").ToList();
-            dbConnection.Close();
-            return result;
-        }
-
-        public void InsertElectricCar(ElectricCar ev)
-        {
-            string sqlCommand = "INSERT INTO electric_cars " +
-                "(brand, model, rent_price, battery_capacity, battery_charging_time)" +
-                "VALUES" +
-                "(@Brand, @Model, @RentPrice, @BatteryCapacity, @BatteryChargingTime)";
-            using (var connection = new SqlConnection(_dbConnectionString))
-            {
-                connection.Execute(sqlCommand, ev);
-            }
-        }
-
-        public void InsertOilFuelCar(OilFuelCar v)
-        {
-            string sqlCommand = "INSERT INTO oil_fuel_cars " +
-                "(brand, model, rent_price, fuel_consumption)" +
-                "VALUES" +
-                "(@Brand, @Model, @RentPrice, @FuelConsumption)";
-            using (var connection = new SqlConnection(_dbConnectionString))
-            {
-                connection.Execute(sqlCommand, v);
-            }
-        }
-
-        public ElectricCar GetElectricCarById(int id)
-        {
-            using IDbConnection dbConnection = new SqlConnection(_dbConnectionString);
-            dbConnection.Open();
-            var result = dbConnection.QueryFirst<ElectricCar>(
-                @"SELECT id, brand, model, rent_price AS RentPrice, battery_capacity AS BatteryCapacity, battery_charging_time AS BatteryChargingTime 
-                  FROM electric_cars WHERE id = @Id", new { Id = id });
-            dbConnection.Close();
-            return result;
-        }
-
-        public OilFuelCar GetOilFuelCarById(int id)
-        {
-            using IDbConnection dbConnection = new SqlConnection(_dbConnectionString);
-            dbConnection.Open();
-            var result = dbConnection.QueryFirst<OilFuelCar>(
-                @"SELECT id, brand, model, rent_price AS RentPrice, fuel_consumption AS FuelConsumption 
-                  FROM oil_fuel_cars WHERE id = @Id", new { Id = id });
-            dbConnection.Close();
-            return result;
-        }
-
-        public void UpdateElectricCarInfo(ElectricCar car)
-        {
-            string sqlCommand = "UPDATE electric_cars SET " +
-                "brand = @Brand, model = @Model, rent_price = @RentPrice, battery_capacity = @BatteryCapacity, battery_charging_time = @BatteryChargingTime " +
-                "WHERE id = @Id";
-            using (var connection = new SqlConnection(_dbConnectionString))
-            {
-                connection.Execute(sqlCommand, car);
-            }
-        }
-
-        public void UpdateOilFuelCarInfo(OilFuelCar car)
-        {
-            string sqlCommand = "UPDATE oil_fuel_cars SET " +
-                "brand = @Brand, model = @Model, rent_price = @RentPrice, fuel_consumption = @FuelConsumption " +
-                "WHERE id = @Id";
-            using (var connection = new SqlConnection(_dbConnectionString))
-            {
-                connection.Execute(sqlCommand, car);
-            }
-        }
-
-/*        public void DeleteElectricCar(int id)
-        {
-            string sqlCommand = "DELETE FROM electric_cars WHERE id = @Id";
-            using (var connection = new SqlConnection(_dbConnectionString))
-            {
-                connection.Execute(sqlCommand, new { Id = id });
-            }
-        }
-
-        public void DeleteOilFuelCar(int id)
-        {
-            string sqlCommand = "DELETE FROM oil_fuel_cars WHERE id = @Id";
-            using (var connection = new SqlConnection(_dbConnectionString))
-            {
-                connection.Execute(sqlCommand, new { Id = id });
-            }
-        }*/
     }
 }

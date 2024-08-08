@@ -11,21 +11,6 @@ namespace CarRental.Core.Repositories
             _filePath = filePath;
         }
 
-        public List<Client> GetAllClientsFromDb()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Client GetClientById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void InsertClient(Client client)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Client> ReadClients()
         {
             List<Client> clients = new List<Client>();
@@ -45,12 +30,7 @@ namespace CarRental.Core.Repositories
             return clients;
         }
 
-        public void UpdateClient(Client client)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void WriteClient(Client client)
+        public Task UpdateClient(Client client)
         {
             throw new NotImplementedException();
         }
@@ -67,6 +47,26 @@ namespace CarRental.Core.Repositories
                         $"{client.YearOfBirth},");
                 }
             }
+        }
+
+        public Task DeleteClient(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Client>> GetAllClientsFromDb()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Client> GetClientById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task InsertClient(Client client)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -4,10 +4,10 @@ namespace CarRental.Core.Contracts
 {
     public interface IEmployeeRepository
     {
-        List<Employee> GetAllEmployeesFromDb();
-        Employee GetEmployeeById(int id);
-        void InsertEmployee(Employee employee);
-        void UpdateEmployee(Employee employee);
-        void DeleteEmployee(int id);
+        Task<List<Employee>> GetAllEmployeesFromDb();
+        Task<Employee> GetEmployeeById(int id);
+        Task InsertEmployee(Employee employee);
+        Task UpdateEmployee(Employee employee);
+        Task DeleteEmployee(int id);
     }
 }

@@ -6,30 +6,41 @@ namespace CarRental.Core.Services
     public class EmployeeService : IEmployeeService
     {
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly IMongoDbCacheRepository _cache;
         private List<Employee> AllEmployees = new List<Employee>();
-        public EmployeeService(IEmployeeRepository employeeRepository)
+        public EmployeeService(IEmployeeRepository employeeRepository, IMongoDbCacheRepository cache)
         {
             _employeeRepository = employeeRepository;
+            _cache = cache;
         }
-        public List<Employee> GetAllEmployeesFromDb()
+        public async Task<List<Employee>> GetAllEmployeesFromDb()
         {
-            return _employeeRepository.GetAllEmployeesFromDb();
+            return await _employeeRepository.GetAllEmployeesFromDb();
         }
-        public Employee GetEmployeeById(int id)
+        public async Task<Employee> GetEmployeeById(int id)
         {
-            return _employeeRepository.GetEmployeeById(id);
+            var emp = await _cache.GetEmployeeById(id);
+
+            if (emp != null)
+            {
+                return emp;
+            }
+
+            emp = await _employeeRepository.GetEmployeeById(id);
+            await _cache.AddEmployee(emp);
+            return emp;
         }
-        public void InsertEmployee(Employee employee)
+        public async Task InsertEmployee(Employee employee)
         {
-            _employeeRepository.InsertEmployee(employee);
+            await _employeeRepository.InsertEmployee(employee);
         }
-        public void UpdateEmployee(Employee employee)
+        public async Task UpdateEmployee(Employee employee)
         {
-            _employeeRepository.UpdateEmployee(employee);
+            await _employeeRepository.UpdateEmployee(employee);
         }
-        public void DeleteEmployee(int id)
+        public async Task DeleteEmployee(int id)
         {
-            _employeeRepository.DeleteEmployee(id);
+            await _employeeRepository.DeleteEmployee(id);
         }
     }
 }

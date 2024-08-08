@@ -11,41 +11,61 @@ namespace CarRental.Core.Services
             _carsRepository = carsRepository;
         }
 
-        public List<Car> FindCarByBrand(string brand)
+        //Electric Cars
+        public async Task<List<ElectricCar>> GetAllElectricCars()
         {
-            List<Car> searchResult = new List<Car>();
-            List<Car> cars = _carsRepository.ReadCars();
-            foreach (Car a in cars)
-            {
-                if (a.Brand == brand)
-                    searchResult.Add(a);
-            }
-            return searchResult;
+            return await _carsRepository.GetAllElectricCars();
         }
 
+        public async Task<ElectricCar> GetElectricCarById(int id)
+        {
+            return await _carsRepository.GetElectricCarById(id);
+        }
+
+        public async Task InsertElectricCar(ElectricCar car)
+        {
+            await _carsRepository.InsertElectricCar(car);
+        }
+
+        public async Task UpdateElectricCar(ElectricCar car)
+        {
+            await _carsRepository.UpdateElectricCar(car);
+        }
+        public async Task DeleteElectricCar(int id)
+        {
+            await _carsRepository.DeleteElectricCar(id);
+        }
+
+        //Oil Fuel Cars
+        public async Task<List<OilFuelCar>> GetAllOilFuelCars()
+        {
+            return await _carsRepository.GetAllOilFuelCars();
+        }
+
+        public async Task<OilFuelCar> GetOilFuelCarById(int id)
+        {
+            return await _carsRepository.GetOilFuelCarById(id);
+        }
+
+        public async Task InsertOilFuelCar(OilFuelCar car)
+        {
+            await _carsRepository.InsertOilFuelCar(car);
+        }
+
+        public async Task UpdateOilFuelCar(OilFuelCar car)
+        {
+            await _carsRepository.UpdateOilFuelCar(car);
+        }
+
+        public async Task DeleteOilFuelCar(int id)
+        {
+            await _carsRepository.DeleteOilFuelCar(id);
+        }
+
+        //File System
         public List<Car> GetAllCars()
         {
             return _carsRepository.ReadCars();
-        }
-
-        public List<ElectricCar> GetAllElectricCars()
-        {
-            return _carsRepository.GetAllElectricCars();
-        }
-
-        public List<OilFuelCar> GetAllOilFuelCars()
-        {
-            return _carsRepository.GetAllOilFuelCars();
-        }
-
-        public ElectricCar GetElectricCarById(int id)
-        {
-            return _carsRepository.GetElectricCarById(id);
-        }
-
-        public OilFuelCar GetOilFuelCarById(int id)
-        {
-            return _carsRepository.GetOilFuelCarById(id);
         }
 
         public void InsertNewCar(Car car)
@@ -56,15 +76,14 @@ namespace CarRental.Core.Services
                 _carsRepository.InsertOilFuelCar((OilFuelCar)car);
         }
 
-        public void UpdateElectricCarInfo(ElectricCar car)
+        public List<Car> ReadCars()
         {
-            _carsRepository.UpdateElectricCarInfo(car);
+            throw new NotImplementedException();
         }
 
-        public void UpdateOilFuelCarInfo(OilFuelCar car)
+        public void WriteCars(List<Car> carList)
         {
-            _carsRepository.UpdateOilFuelCarInfo(car);
+            throw new NotImplementedException();
         }
-
     }
 }

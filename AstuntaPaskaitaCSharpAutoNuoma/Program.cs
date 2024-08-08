@@ -12,7 +12,7 @@ public class Program
     {
 
 
-        ICarRentService carRentService = SetupDependencies();
+        /*ICarRentService carRentService = SetupDependencies();
         while (true)
         {
             Console.WriteLine("1. Cars Menu");
@@ -415,9 +415,9 @@ public class Program
                     }
                     break;
             }
-        }
+        }*/
     }
-    public static ICarRentService SetupDependencies()
+/*    public static ICarRentService SetupDependencies()
     {
         //IClientRepository clientRepository = new ClientsFileRepository("clients.csv");
         IClientRepository clientRepository = new ClientsDbRepository("Server=localhost;Database=car_rental_db;Trusted_Connection=True;");
@@ -431,6 +431,6 @@ public class Program
         IEmployeeService employeeService = new EmployeeService(employeeRepository);
 
         return new CarRentService(clientService, carService, rentOrderService, employeeService);
-    }
+    }*/
 }
 

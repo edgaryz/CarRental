@@ -14,31 +14,16 @@ namespace CarRental.Core.Repositories
             _dbConnectionString = connectionString;
         }
 
-        public List<Client> ReadClients()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void WriteClient(Client client)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void WriteClients(List<Client> clientList)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Client> GetAllClientsFromDb()
+        public async Task<List<Client>> GetAllClientsFromDb()
         {
             using IDbConnection dbConnection = new SqlConnection(_dbConnectionString);
             dbConnection.Open();
-            var result = dbConnection.Query<Client>(@"SELECT id, first_name AS FirstName, last_name AS LastName, year_of_birth AS YearOfBirth FROM clients").ToList();
+            var result = await dbConnection.QueryAsync<Client>(@"SELECT id, first_name AS FirstName, last_name AS LastName, year_of_birth AS YearOfBirth FROM clients");
             dbConnection.Close();
-            return result;
+            return result.ToList();
         }
 
-        public void InsertClient(Client client)
+        public async Task InsertClient(Client client)
         {
             string sqlCommand = "INSERT INTO clients " +
                 "(first_name, last_name, year_of_birth)" +
@@ -46,30 +31,49 @@ namespace CarRental.Core.Repositories
                 "(@FirstName, @LastName, @YearOfBirth)";
             using (var connection = new SqlConnection(_dbConnectionString))
             {
-                connection.Execute(sqlCommand, client);
+                await connection.ExecuteAsync(sqlCommand, client);
             }
         }
 
-        public Client GetClientById(int id)
+        public async Task<Client> GetClientById(int id)
         {
             using IDbConnection dbConnection = new SqlConnection(_dbConnectionString);
             dbConnection.Open();
-            var result = dbConnection.QueryFirst<Client>(
+            var result = await dbConnection.QueryFirstAsync<Client>(
                 @"SELECT id, first_name AS FirstName, last_name AS LastName, year_of_birth AS YearOfBirth 
                   FROM clients WHERE id = @Id", new { Id = id });
             dbConnection.Close();
             return result;
         }
 
-        public void UpdateClient(Client client)
+        public async Task UpdateClient(Client client)
         {
             string sqlCommand = "UPDATE clients SET " +
                 "first_name = @FirstName, last_name = @LastName, year_of_birth = @YearOfBirth " +
                 "WHERE id = @Id";
             using (var connection = new SqlConnection(_dbConnectionString))
             {
-                connection.Execute(sqlCommand, client);
+                await connection.ExecuteAsync(sqlCommand, client);
             }
+        }
+
+        public async Task DeleteClient(int id)
+        {
+            string sqlCommand = "DELETE FROM clients WHERE id = @Id";
+            using (var connection = new SqlConnection(_dbConnectionString))
+            {
+                await connection.ExecuteAsync(sqlCommand, new { Id = id });
+            }
+        }
+
+        public List<Client> ReadClients()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void WriteClients(List<Client> clientList)
+        {
+            throw new NotImplementedException();
         }
     }
 }

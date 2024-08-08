@@ -6,33 +6,48 @@ namespace CarRental.Core.Services
     public class ClientService : IClientService
     {
         private readonly IClientRepository _clientRepository;
+        private readonly IMongoDbCacheRepository _cache;
         private List<Client> AllClients = new List<Client>();
-        public ClientService(IClientRepository clientRepository)
+        public ClientService(IClientRepository clientRepository, IMongoDbCacheRepository cache)
         {
             _clientRepository = clientRepository;
-        }
-        public void AddClient(Client client)
-        {
-            throw new NotImplementedException();
+            _cache = cache;
         }
 
-        public List<Client> GetAllClientsFromFile()
+        public async Task<List<Client>> GetAllClientsFromDb()
         {
-            if (AllClients.Count == 0)
-                AllClients = _clientRepository.ReadClients();
-            return AllClients;
+            return await _clientRepository.GetAllClientsFromDb();
         }
 
-        public void ReadFile()
+        public async Task<Client> GetClientById(int id)
         {
-            throw new NotImplementedException();
+            var cln = await _cache.GetClientById(id);
+
+            if (cln != null)
+            {
+                return cln;
+            }
+
+            cln = await _clientRepository.GetClientById(id);
+            return cln;
         }
 
-        public void WriteFile()
+        public async Task InsertClient(Client client)
         {
-            throw new NotImplementedException();
+            await _clientRepository.InsertClient(client);
         }
 
+        public async Task UpdateClient(Client client)
+        {
+            await _clientRepository.UpdateClient(client);
+        }
+
+        public async Task DeleteClient(int id)
+        {
+            await _clientRepository.DeleteClient(id);
+        }
+
+        //File System
         public Client FindClientByFirstNameAndLastName(string firstName, string lastName)
         {
             Client client = new Client();
@@ -47,23 +62,11 @@ namespace CarRental.Core.Services
             return client;
         }
 
-        public void InsertClient(Client client)
+        public List<Client> GetAllClientsFromFile()
         {
-            _clientRepository.InsertClient(client);
-        }
-
-        public List<Client> GetAllClientsFromDb()
-        {
-            return _clientRepository.GetAllClientsFromDb();
-        }
-
-        public Client GetClientById(int id)
-        {
-            return _clientRepository.GetClientById(id);
-        }
-        public void UpdateClient(Client client)
-        {
-            _clientRepository.UpdateClient(client);
+            if (AllClients.Count == 0)
+                AllClients = _clientRepository.ReadClients();
+            return AllClients;
         }
     }
 }

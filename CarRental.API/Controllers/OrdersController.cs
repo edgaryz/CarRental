@@ -12,12 +12,12 @@ namespace CarRental.API.Controllers
             _carRentService = carRentService;
         }
 
-        [HttpGet("GetAllOrders")]
+/*        [HttpGet("GetAllOrders")]
         public IActionResult GetAllOrders()
         {
             var allOrders = _carRentService.GetAllOrders();
             return Ok(allOrders);
-        }
+        }*/
 
         [HttpGet("GetOrderById")]
         public IActionResult GetOrderById(int id)
@@ -53,7 +53,7 @@ namespace CarRental.API.Controllers
                 return Problem();
             }
         }
-
+        //TODO UPDATE
 /*        [HttpPut("UpdateClient")]///////////
         public IActionResult UpdateClient(Client client)
         {
@@ -67,5 +67,7 @@ namespace CarRental.API.Controllers
                 return Problem();
             }
         }*/
+
+        //TODO DELETE
     }
 }

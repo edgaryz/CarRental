@@ -13,9 +13,9 @@ namespace CarRental.FrontEnd.Pages
         {
             _carRentService = carRentService;
         }
-        public void OnGet()
+        public async Task OnGet()
         {
-            allEV = _carRentService.GetAllElectricCars();
+            allEV = await _carRentService.GetAllElectricCars();
         }
     }
 }

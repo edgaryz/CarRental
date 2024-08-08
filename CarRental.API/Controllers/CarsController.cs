@@ -14,26 +14,27 @@ namespace CarRental.API.Controllers
             _carRentService = carRentService;
         }
 
+        //Electric Cars
         [HttpGet("GetAllElectricCars")]
-        public IActionResult GetAllElectricCars()
+        public async Task<IActionResult> GetAllElectricCars()
         {
-            var allEVCars = _carRentService.GetAllElectricCars();
+            var allEVCars = await _carRentService.GetAllElectricCars();
             return Ok(allEVCars);
         }
 
         [HttpGet("GetElectricCarById")]
-        public IActionResult GetElectricCarById(int id)
+        public async Task<IActionResult> GetElectricCarById(int id)
         {
-            var evCar = _carRentService.GetElectricCarById(id);
+            var evCar = await _carRentService.GetElectricCarById(id);
             return Ok(evCar);
         }
 
         [HttpPost("InsertElectricCar")]
-        public IActionResult InsertElectricCar(ElectricCar car)
+        public async Task<IActionResult> InsertElectricCar(ElectricCar car)
         {
             try
             {
-                _carRentService.AddNewCar(car);
+                await _carRentService.InsertElectricCar(car);
                 return Ok();
             }
             catch
@@ -43,11 +44,11 @@ namespace CarRental.API.Controllers
         }
 
         [HttpPut("UpdateElectricCar")]
-        public IActionResult UpdateElectricCar(ElectricCar car)
+        public async Task<IActionResult> UpdateElectricCar(ElectricCar car)
         {
             try
             {
-                _carRentService.UpdateElectricCarInfo(car);
+                await _carRentService.UpdateElectricCar(car);
                 return Ok();
             }
             catch
@@ -56,6 +57,61 @@ namespace CarRental.API.Controllers
             }
         }
 
-        //OIL CARS TODO
+        [HttpDelete("DeleteElectricCar")]
+        public async Task<IActionResult> DeleteElectricCar(int id)
+        {
+                await _carRentService.DeleteElectricCar(id);
+                return Ok();
+        }
+
+        //Oil Fuel Cars
+        [HttpGet("GetAllOilFuelCars")]
+        public async Task<IActionResult> GetAllOilFuelCars()
+        {
+            var allOFCCars = await _carRentService.GetAllOilFuelCars();
+            return Ok(allOFCCars);
+        }
+
+        [HttpGet("GetOilFuelCarById")]
+        public async Task<IActionResult> GetOilFuelCarById(int id)
+        {
+            var ofcCar = await _carRentService.GetOilFuelCarById(id);
+            return Ok(ofcCar);
+        }
+
+        [HttpPost("InsertOilFuelCar")]
+        public async Task<IActionResult> InsertOilFuelCar(OilFuelCar car)
+        {
+            try
+            {
+                await _carRentService.InsertOilFuelCar(car);
+                return Ok();
+            }
+            catch
+            {
+                return Problem();
+            }
+        }
+
+        [HttpPut("UpdateOilFuelCar")]
+        public async Task<IActionResult> UpdateOilFuelCar(OilFuelCar car)
+        {
+            try
+            {
+                await _carRentService.UpdateOilFuelCar(car);
+                return Ok();
+            }
+            catch
+            {
+                return Problem();
+            }
+        }
+
+        [HttpDelete("DeleteOilFuelCar")]
+        public async Task<IActionResult> DeleteOilFuelCar(int id)
+        {
+            await _carRentService.DeleteOilFuelCar(id);
+            return Ok();
+        }
     }
 }

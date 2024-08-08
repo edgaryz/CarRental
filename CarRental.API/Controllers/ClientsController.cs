@@ -13,25 +13,25 @@ namespace CarRental.API.Controllers
         }
 
         [HttpGet("GetAllClients")]
-        public IActionResult GetAllClients()
+        public async Task<IActionResult> GetAllClients()
         {
-            var allClients = _carRentService.GetAllClientsFromDb();
+            var allClients = await _carRentService.GetAllClientsFromDb();
             return Ok(allClients);
         }
 
         [HttpGet("GetClientById")]
-        public IActionResult GetClientById(int id)
+        public async Task<IActionResult> GetClientById(int id)
         {
-            var client = _carRentService.GetClientById(id);
+            var client = await _carRentService.GetClientById(id);
             return Ok(client);
         }
 
         [HttpPost("InsertClient")]
-        public IActionResult InsertClient(Client client)
+        public async Task<IActionResult> InsertClient(Client client)
         {
             try
             {
-                _carRentService.InsertClient(client);
+                await _carRentService.InsertClient(client);
                 return Ok();
             }
             catch
@@ -41,17 +41,24 @@ namespace CarRental.API.Controllers
         }
 
         [HttpPut("UpdateClient")]
-        public IActionResult UpdateClient(Client client)
+        public async Task<IActionResult> UpdateClient(Client client)
         {
             try
             {
-                _carRentService.UpdateClient(client);
+                await _carRentService.UpdateClient(client);
                 return Ok();
             }
             catch
             {
                 return Problem();
             }
+        }
+
+        [HttpDelete("DeleteClient")]
+        public async Task<IActionResult> DeleteClient(int id)
+        {
+            await _carRentService.DeleteClient(id);
+            return Ok();
         }
     }
 }

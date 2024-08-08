@@ -1,26 +1,131 @@
-﻿using CarRental.Core.Contracts;
+﻿using Amazon.Runtime.Internal.Util;
+using CarRental.Core.Contracts;
 using CarRental.Core.Models;
 
 namespace CarRental.Core.Services
 {
     public class CarRentService : ICarRentService
     {
-        public readonly IClientService _clientService;
+        public readonly IClientService _clientsService;
         public readonly ICarsService _carsService;
         public readonly IRentOrderService _rentOrderService;
-        public readonly IEmployeeService _employeeService;
+        public readonly IEmployeeService _employeesService;
         private List<Car> AllCars = new List<Car>();
         private List<RentOrder> AllOrders = new List<RentOrder>();
         private List<Employee> AllEmployees = new List<Employee>();
         public CarRentService() { }
-        public CarRentService(IClientService clientService, ICarsService carsService, IRentOrderService rentOrderService, IEmployeeService employeeService)
+        public CarRentService(IClientService clientsService, ICarsService carsService, IRentOrderService rentOrdersService, IEmployeeService employeesService)
         {
-            _clientService = clientService;
+            _clientsService = clientsService;
             _carsService = carsService;
-            _rentOrderService = rentOrderService;
-            _employeeService = employeeService;
+            _rentOrderService = rentOrdersService;
+            _employeesService = employeesService;
         }
 
+        //Electric Cars
+        public async Task<List<ElectricCar>> GetAllElectricCars()
+        {
+            return await _carsService.GetAllElectricCars();
+        }
+
+        public async Task<ElectricCar> GetElectricCarById(int id)
+        {
+            return await _carsService.GetElectricCarById(id);
+        }
+
+        public async Task InsertElectricCar(ElectricCar car)
+        {
+            await _carsService.InsertElectricCar(car);
+        }
+
+        public async Task UpdateElectricCar(ElectricCar car)
+        {
+            await _carsService.UpdateElectricCar(car);
+        }
+        public async Task DeleteElectricCar(int id)
+        {
+            await _carsService.DeleteElectricCar(id);
+        }
+
+        //Oil Fuel Cars
+        public async Task<List<OilFuelCar>> GetAllOilFuelCars()
+        {
+            return await _carsService.GetAllOilFuelCars();
+        }
+
+        public async Task<OilFuelCar> GetOilFuelCarById(int id)
+        {
+            return await _carsService.GetOilFuelCarById(id);
+        }
+
+        public async Task InsertOilFuelCar(OilFuelCar car)
+        {
+            await _carsService.InsertOilFuelCar(car);
+        }
+
+        public async Task UpdateOilFuelCar(OilFuelCar car)
+        {
+            await _carsService.UpdateOilFuelCar(car);
+        }
+
+        public async Task DeleteOilFuelCar(int id)
+        {
+            await _carsService.DeleteOilFuelCar(id);
+        }
+
+        //Clients
+        public async Task<List<Client>> GetAllClientsFromDb()
+        {
+            return await _clientsService.GetAllClientsFromDb();
+        }
+
+        public async Task<Client> GetClientById(int id)
+        {
+            return await _clientsService.GetClientById(id);
+        }
+
+        public async Task InsertClient(Client client)
+        {
+            await _clientsService.InsertClient(client);
+        }
+
+        public async Task UpdateClient(Client client)
+        {
+            await _clientsService.UpdateClient(client);
+        }
+
+        public async Task DeleteClient(int id)
+        {
+            await _clientsService.DeleteClient(id);
+        }
+
+        //Employees
+        public async Task<List<Employee>> GetAllEmployeesFromDb()
+        {
+            return await _employeesService.GetAllEmployeesFromDb();
+        }
+
+        public async Task<Employee> GetEmployeeById(int id)
+        {
+            return await _employeesService.GetEmployeeById(id);
+        }
+
+        public async Task InsertEmployee(Employee employee)
+        {
+            await _employeesService.InsertEmployee(employee);
+        }
+
+        public async Task UpdateEmployee(Employee employee)
+        {
+            await _employeesService.UpdateEmployee(employee);
+        }
+
+        public async Task DeleteEmployee(int id)
+        {
+            await _employeesService.DeleteEmployee(id);
+        }
+
+        //Orders
         public void CountTotalRentPrice()
         {
             throw new NotImplementedException();
@@ -28,7 +133,7 @@ namespace CarRental.Core.Services
 
         public void CreateOrder(string clientName, string clientLastName, int autoId, DateTime orderStartDate, int orderDays)
         {
-            Client client = _clientService.FindClientByFirstNameAndLastName(clientName, clientLastName);
+            Client client = _clientsService.FindClientByFirstNameAndLastName(clientName, clientLastName);
 
             Car car = new Car();
 
@@ -47,83 +152,15 @@ namespace CarRental.Core.Services
             AllOrders.Add(rentOrder);
         }
 
-        public List<RentOrder> GetAllOrders()
+/*        public List<RentOrder> GetAllOrders()
         {
             return _rentOrderService.GetAllOrders();
-        }
+        }*/
 
         public List<RentOrder> GetOrderByClient(Client client)
         {
             throw new NotImplementedException();
         }
-
-        public List<Car> GetAllCars()
-        {
-            if (AllCars.Count == 0)
-                AllCars = _carsService.GetAllCars();
-            return AllCars;
-        }
-
-        public void AddNewCar(Car car)
-        {
-            _carsService.InsertNewCar(car);
-        }
-
-        public void UpdateElectricCarInfo(ElectricCar car)
-        {
-            _carsService.UpdateElectricCarInfo(car);
-        }
-
-        public void UpdateOilFuelCarInfo(OilFuelCar car)
-        {
-            _carsService.UpdateOilFuelCarInfo(car);
-        }
-
-        public List<Client> GetAllClientsFromFile()
-        {
-            return _clientService.GetAllClientsFromFile();
-        }
-
-        public Client GetClientById(int id)
-        {
-            return _clientService.GetClientById(id);
-        }
-
-        public void UpdateClient(Client client)
-        {
-            _clientService.UpdateClient(client);
-        }
-
-        public List<ElectricCar> GetAllElectricCars()
-        {
-            return _carsService.GetAllElectricCars();
-        }
-
-        public List<OilFuelCar> GetAllOilFuelCars()
-        {
-            return _carsService.GetAllOilFuelCars();
-        }
-
-        public ElectricCar GetElectricCarById(int id)
-        {
-            return _carsService.GetElectricCarById(id);
-        }
-
-        public OilFuelCar GetOilFuelCarById(int id)
-        {
-            return _carsService.GetOilFuelCarById(id);
-        }
-
-        public List<Client> GetAllClientsFromDb()
-        {
-            return _clientService.GetAllClientsFromDb();
-        }
-
-        public void InsertClient(Client client)
-        {
-            _clientService.InsertClient(client);
-        }
-
         public void CreateElectricCarOrder(RentOrder newOrder)
         {
             _rentOrderService.CreateElectricCarOrder(newOrder);
@@ -139,29 +176,22 @@ namespace CarRental.Core.Services
             return _rentOrderService.GetOrderById(id);
         }
 
-        public List<Employee> GetAllEmployeesFromDb()
+        //File System
+        public List<Car> GetAllCars()
         {
-            return _employeeService.GetAllEmployeesFromDb();
+            if (AllCars.Count == 0)
+                AllCars = _carsService.GetAllCars();
+            return AllCars;
         }
 
-        public Employee GetEmployeeById(int id)
+        public void AddNewCar(Car car)
         {
-            return _employeeService.GetEmployeeById(id);
+            _carsService.InsertNewCar(car);
         }
 
-        public void InsertEmployee(Employee employee)
+        public List<Client> GetAllClientsFromFile()
         {
-            _employeeService.InsertEmployee(employee);
-        }
-
-        public void UpdateEmployee(Employee employee)
-        {
-            _employeeService.UpdateEmployee(employee);
-        }
-
-        public void DeleteEmployee(int id)
-        {
-            _employeeService.DeleteEmployee(id);
+            return _clientsService.GetAllClientsFromFile();
         }
     }
 }

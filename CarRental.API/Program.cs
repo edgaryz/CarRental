@@ -1,6 +1,7 @@
 using CarRental.Core.Contracts;
 using CarRental.Core.Repositories;
 using CarRental.Core.Services;
+using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IClientRepository, ClientsDbRepository>(_ => new ClientsDbRepository("clients.csv"));
 builder.Services.AddTransient<ICarsRepository, CarsDbRepository>(_ => new CarsDbRepository("clients.csv"));
 //repo
+builder.Services.AddTransient<IMongoDbCacheRepository, MongoDbCacheRepository>();
+builder.Services.AddSingleton<IMongoClient, MongoClient>(_ => new MongoClient("mongodb+srv://edgarsokol:lala4444@cluster0.kdpdd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"));
 builder.Services.AddTransient<ICarsRepository, CarsDbRepository>(_ => new CarsDbRepository("Server=localhost;Database=car_rental_db;Trusted_Connection=True;"));
 builder.Services.AddTransient<IClientRepository, ClientsDbRepository>(_ => new ClientsDbRepository("Server=localhost;Database=car_rental_db;Trusted_Connection=True;"));
 builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>(_ => new EmployeeRepository("Server=localhost;Database=car_rental_db;Trusted_Connection=True;"));

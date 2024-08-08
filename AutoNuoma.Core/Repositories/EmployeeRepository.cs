@@ -13,25 +13,25 @@ namespace CarRental.Core.Repositories
         {
             _dbConnectionString = connectionString;
         }
-        public List<Employee> GetAllEmployeesFromDb()
+        public async Task<List<Employee>> GetAllEmployeesFromDb()
         {
             using IDbConnection dbConnection = new SqlConnection(_dbConnectionString);
             dbConnection.Open();
-            var result = dbConnection.Query<Employee>(@"SELECT id, first_name AS FirstName, last_name AS LastName, position FROM employees").ToList();
+            var result = await dbConnection.QueryAsync<Employee>(@"SELECT id, first_name AS FirstName, last_name AS LastName, position FROM employees");
             dbConnection.Close();
-            return result;
+            return result.ToList();
         }
-        public Employee GetEmployeeById(int id)
+        public async Task<Employee> GetEmployeeById(int id)
         {
             using IDbConnection dbConnection = new SqlConnection(_dbConnectionString);
             dbConnection.Open();
-            var result = dbConnection.QueryFirst<Employee>(
+            var result = await dbConnection.QueryFirstAsync<Employee>(
                 @"SELECT id, first_name AS FirstName, last_name AS LastName, position AS Position 
                   FROM employees WHERE id = @Id", new { Id = id });
             dbConnection.Close();
             return result;
         }
-        public void InsertEmployee(Employee employee)
+        public async Task InsertEmployee(Employee employee)
         {
             string sqlCommand = "INSERT INTO employees " +
                 "(first_name, last_name, position)" +
@@ -39,25 +39,25 @@ namespace CarRental.Core.Repositories
                 "(@FirstName, @LastName, @Position)";
             using (var connection = new SqlConnection(_dbConnectionString))
             {
-                connection.Execute(sqlCommand, employee);
+                await connection.ExecuteAsync(sqlCommand, employee);
             }
         }
-        public void UpdateEmployee(Employee employee)
+        public async Task UpdateEmployee(Employee employee)
         {
             string sqlCommand = "UPDATE employees SET " +
                 "first_name = @FirstName, last_name = @LastName, position = @Position " +
                 "WHERE id = @Id";
             using (var connection = new SqlConnection(_dbConnectionString))
             {
-                connection.Execute(sqlCommand, employee);
+                await connection.ExecuteAsync(sqlCommand, employee);
             }
         }
-        public void DeleteEmployee(int id)
+        public async Task DeleteEmployee(int id)
         {
             string sqlCommand = "DELETE FROM employees WHERE id = @Id";
             using (var connection = new SqlConnection(_dbConnectionString))
             {
-                connection.Execute(sqlCommand, new { Id = id });
+                await connection.ExecuteAsync(sqlCommand, new { Id = id });
             }
         }
     }

@@ -4,14 +4,12 @@ namespace CarRental.Core.Contracts
 {
     public interface IClientService
     {
-        void ReadFile();
-        void WriteFile();
-        void AddClient(Client client);
-        Client FindClientByFirstNameAndLastName(string firstName, string lastName);
+        Task<List<Client>> GetAllClientsFromDb();
+        Task<Client> GetClientById(int id);
+        Task InsertClient(Client client);
+        Task UpdateClient(Client client);
+        Task DeleteClient(int id);
         List<Client> GetAllClientsFromFile();
-        List<Client> GetAllClientsFromDb();
-        void InsertClient(Client client);
-        Client GetClientById(int id);
-        void UpdateClient(Client client);
+        Client FindClientByFirstNameAndLastName(string firstName, string lastName);
     }
 }

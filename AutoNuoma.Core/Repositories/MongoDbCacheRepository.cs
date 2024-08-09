@@ -13,8 +13,8 @@ namespace CarRental.Core.Repositories
 
         public MongoDbCacheRepository(IMongoClient mongoClient)
         {
-            _evCarsCache = mongoClient.GetDatabase("electric cars").GetCollection<ElectricCar>("electric_cars_cache");
-            _ofcCarsCache = mongoClient.GetDatabase("oil fuel cars").GetCollection<OilFuelCar>("oil_fuel_cars_cache");
+            _evCarsCache = mongoClient.GetDatabase("electric_cars").GetCollection<ElectricCar>("electric_cars_cache");
+            _ofcCarsCache = mongoClient.GetDatabase("oil_fuel_cars").GetCollection<OilFuelCar>("oil_fuel_cars_cache");
             _clientsCache = mongoClient.GetDatabase("clients").GetCollection<Client>("clients_cache");
             _employeesCache = mongoClient.GetDatabase("employees").GetCollection<Employee>("employees_cache");
 
@@ -51,6 +51,11 @@ namespace CarRental.Core.Repositories
         public async Task ClearElectricCarCache()
         {
             await _evCarsCache.Database.DropCollectionAsync("electric_cars_cache");
+        }
+
+        public async Task<int> GetElectricCarCount()
+        {
+            return await _evCarsCache.CountDocumentsAsync<int>(x => true);
         }
 
         //Oil Fuel Cars

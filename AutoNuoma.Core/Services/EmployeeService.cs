@@ -18,7 +18,7 @@ namespace CarRental.Core.Services
         {
             var empList = await _cache.GetEmployeeList();
 
-            if (empList != null)
+            if (empList.Count > 0)
             {
                 return empList;
             }

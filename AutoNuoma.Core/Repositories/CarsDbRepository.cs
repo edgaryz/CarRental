@@ -67,6 +67,15 @@ namespace CarRental.Core.Repositories
             }
         }
 
+        public async Task<int> GetElectricCarCountFromDb()
+        {
+            using IDbConnection dbConnection = new SqlConnection(_dbConnectionString);
+            dbConnection.Open();
+            var result = await dbConnection.ExecuteScalarAsync<int>(@"SELECT COUNT(id) FROM electric_cars");
+            dbConnection.Close();
+            return result;
+        }
+
         //Oil Fuel Cars
         public async Task<List<OilFuelCar>> GetAllOilFuelCars()
         {
@@ -118,6 +127,15 @@ namespace CarRental.Core.Repositories
             {
                 await connection.ExecuteAsync(sqlCommand, new { Id = id });
             }
+        }
+
+        public async Task<int> GetOilFuelCarCountFromDb()
+        {
+            using IDbConnection dbConnection = new SqlConnection(_dbConnectionString);
+            dbConnection.Open();
+            var result = await dbConnection.ExecuteScalarAsync<int>(@"SELECT COUNT(id) FROM oil_fuel_cars");
+            dbConnection.Close();
+            return result;
         }
 
         //File System

@@ -18,7 +18,7 @@ namespace CarRental.Core.Services
         {
             var clnList = await _cache.GetClientList();
 
-            if (clnList != null)
+            if (clnList.Count > 0)
             {
                 return clnList;
             }

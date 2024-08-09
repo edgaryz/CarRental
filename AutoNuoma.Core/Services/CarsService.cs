@@ -16,9 +16,11 @@ namespace CarRental.Core.Services
         //Electric Cars
         public async Task<List<ElectricCar>> GetAllElectricCars()
         {
+            //check consistency
+
             var evList = await _cache.GetElectricCarList();
 
-            if (evList != null)
+            if (evList.Count > 0)
             {
                 return evList;
             }
@@ -61,7 +63,7 @@ namespace CarRental.Core.Services
         {
             var ofcList = await _cache.GetOilFuelCarList();
 
-            if (ofcList != null)
+            if (ofcList.Count > 0)
             {
                 return ofcList;
             }

@@ -8,5 +8,6 @@ namespace CarRental.Core.Contracts
         Task<Employee> GetEmployeeById(int id);
         Task AddClient(Client employee);
         Task<Client> GetClientById(int id);
+        Task ClearClientsCache();
     }
 }

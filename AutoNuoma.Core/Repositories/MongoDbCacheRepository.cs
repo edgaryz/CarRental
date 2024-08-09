@@ -53,6 +53,11 @@ namespace CarRental.Core.Repositories
             }
         }
 
+        public async Task ClearOilFuelCarsCache(OilFuelCar ofc)
+        {
+            await _ofcCarsCache.InsertOneAsync(ofc);
+        }
+
         //Client
         public async Task AddClient(Client client)
         {
@@ -69,6 +74,11 @@ namespace CarRental.Core.Repositories
             {
                 return null;
             }
+        }
+
+        public async Task ClearClientsCache()
+        {
+            await _clientsCache.Database.DropCollectionAsync("clients_cache");
         }
 
         //Employee

@@ -60,5 +60,14 @@ namespace CarRental.Core.Repositories
                 await connection.ExecuteAsync(sqlCommand, new { Id = id });
             }
         }
+
+        public async Task<int> GetEmployeeCountFromDb()
+        {
+            using IDbConnection dbConnection = new SqlConnection(_dbConnectionString);
+            dbConnection.Open();
+            var result = await dbConnection.ExecuteScalarAsync<int>(@"SELECT COUNT(id) FROM employees");
+            dbConnection.Close();
+            return result;
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace CarRental.Core.Contracts
         Task<Client> GetClientById(int id);
         Task UpdateClient(Client client);
         Task DeleteClient(int id);
+        Task<int> GetClientCountFromDb();
         List<Client> ReadClients();
         void WriteClients(List<Client> clientList);
     }

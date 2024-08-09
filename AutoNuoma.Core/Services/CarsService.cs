@@ -16,17 +16,19 @@ namespace CarRental.Core.Services
         //Electric Cars
         public async Task<List<ElectricCar>> GetAllElectricCars()
         {
-            //check consistency
+            List<ElectricCar> evList;
 
-            var evList = await _cache.GetElectricCarList();
-
-            if (evList.Count > 0)
+            if (await _carsRepository.GetElectricCarCountFromDb() != await _cache.GetElectricCarCount())
             {
-                return evList;
+                await _cache.ClearElectricCarCache();
+                evList = await _carsRepository.GetAllElectricCars();
+                await _cache.InsertElectricCarList(evList);
+            }
+            else
+            {
+                evList = await _cache.GetElectricCarList();
             }
 
-            evList = await _carsRepository.GetAllElectricCars();
-            await _cache.InsertElectricCarList(evList);
             return evList;
         }
 
@@ -61,15 +63,19 @@ namespace CarRental.Core.Services
         //Oil Fuel Cars
         public async Task<List<OilFuelCar>> GetAllOilFuelCars()
         {
-            var ofcList = await _cache.GetOilFuelCarList();
+            List<OilFuelCar> ofcList;
 
-            if (ofcList.Count > 0)
+            if (await _carsRepository.GetOilFuelCarCountFromDb() != await _cache.GetOilFuelCarCount())
             {
-                return ofcList;
+                await _cache.ClearOilFuelCarsCache();
+                ofcList = await _carsRepository.GetAllOilFuelCars();
+                await _cache.InsertOilFuelCarList(ofcList);
+            }
+            else
+            {
+                ofcList = await _cache.GetOilFuelCarList();
             }
 
-            ofcList = await _carsRepository.GetAllOilFuelCars();
-            await _cache.InsertOilFuelCarList(ofcList);
             return ofcList;
         }
 

@@ -68,5 +68,10 @@ namespace CarRental.Core.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public Task<int> GetClientCountFromDb()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

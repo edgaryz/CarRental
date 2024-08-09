@@ -131,5 +131,15 @@ namespace CarRental.Core.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public Task<int> GetElectricCarCountFromDb()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> GetOilFuelCarCountFromDb()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

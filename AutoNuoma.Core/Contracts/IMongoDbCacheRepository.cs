@@ -10,6 +10,7 @@ namespace CarRental.Core.Contracts
         Task InsertElectricCarList(List<ElectricCar> evList);
         Task InsertElectricCar(ElectricCar ev);
         Task ClearElectricCarCache();
+        Task<long> GetElectricCarCount();
 
         //Oil Fuel Cars
         Task<List<OilFuelCar>> GetOilFuelCarList();
@@ -17,6 +18,7 @@ namespace CarRental.Core.Contracts
         Task InsertOilFuelCarList(List<OilFuelCar> ofcList);
         Task InsertOilFuelCar(OilFuelCar ofc);
         Task ClearOilFuelCarsCache();
+        Task<long> GetOilFuelCarCount();
 
         //Clients
         Task<List<Client>> GetClientList();
@@ -24,6 +26,7 @@ namespace CarRental.Core.Contracts
         Task InsertClientList(List<Client> clnList);
         Task InsertClient(Client client);
         Task ClearClientsCache();
+        Task<long> GetClientCount();
 
         //Employees
         Task<List<Employee>> GetEmployeeList();
@@ -31,5 +34,6 @@ namespace CarRental.Core.Contracts
         Task InsertEmployeeList(List<Employee> empList);
         Task InsertEmployee(Employee employee);
         Task ClearEmployeeCache();
+        Task<long> GetEmployeeCount();
     }
 }

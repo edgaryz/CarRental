@@ -66,6 +66,16 @@ namespace CarRental.Core.Repositories
             }
         }
 
+        public async Task<int> GetClientCountFromDb()
+        {
+            using IDbConnection dbConnection = new SqlConnection(_dbConnectionString);
+            dbConnection.Open();
+            var result = await dbConnection.ExecuteScalarAsync<int>(@"SELECT COUNT(id) FROM clients");
+            dbConnection.Close();
+            return result;
+        }
+
+        //File System
         public List<Client> ReadClients()
         {
             throw new NotImplementedException();

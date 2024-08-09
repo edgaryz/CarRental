@@ -1,5 +1,6 @@
 ﻿using CarRental.Core.Contracts;
 using CarRental.Core.Models;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace CarRental.Core.Repositories
@@ -17,7 +18,6 @@ namespace CarRental.Core.Repositories
             _ofcCarsCache = mongoClient.GetDatabase("oil_fuel_cars").GetCollection<OilFuelCar>("oil_fuel_cars_cache");
             _clientsCache = mongoClient.GetDatabase("clients").GetCollection<Client>("clients_cache");
             _employeesCache = mongoClient.GetDatabase("employees").GetCollection<Employee>("employees_cache");
-
         }
 
         //Electric Cars
@@ -53,9 +53,9 @@ namespace CarRental.Core.Repositories
             await _evCarsCache.Database.DropCollectionAsync("electric_cars_cache");
         }
 
-        public async Task<int> GetElectricCarCount()
+        public async Task<long> GetElectricCarCount()
         {
-            return await _evCarsCache.CountDocumentsAsync<int>(x => true);
+            return await _evCarsCache.CountDocumentsAsync(x => true);
         }
 
         //Oil Fuel Cars
@@ -91,6 +91,11 @@ namespace CarRental.Core.Repositories
             await _ofcCarsCache.Database.DropCollectionAsync("oil_fuel_cars_cache");
         }
 
+        public async Task<long> GetOilFuelCarCount()
+        {
+            return await _ofcCarsCache.CountDocumentsAsync(x => true);
+        }
+
         //Clients
         public async Task<List<Client>> GetClientList()
         {
@@ -122,6 +127,11 @@ namespace CarRental.Core.Repositories
         public async Task ClearClientsCache()
         {
             await _clientsCache.Database.DropCollectionAsync("clients_cache");
+        }
+
+        public async Task<long> GetClientCount()
+        {
+            return await _clientsCache.CountDocumentsAsync(x => true);
         }
 
         //Employees
@@ -157,5 +167,9 @@ namespace CarRental.Core.Repositories
             await _employeesCache.Database.DropCollectionAsync("employees_cache");
         }
 
+        public async Task<long> GetEmployeeCount()
+        {
+            return await _employeesCache.CountDocumentsAsync(x => true);
+        }
     }
 }

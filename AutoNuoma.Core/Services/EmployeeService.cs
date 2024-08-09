@@ -16,15 +16,19 @@ namespace CarRental.Core.Services
 
         public async Task<List<Employee>> GetAllEmployeesFromDb()
         {
-            var empList = await _cache.GetEmployeeList();
+            List<Employee> empList;
 
-            if (empList.Count > 0)
+            if (await _employeeRepository.GetEmployeeCountFromDb() != await _cache.GetEmployeeCount())
             {
-                return empList;
+                await _cache.ClearElectricCarCache();
+                empList = await _employeeRepository.GetAllEmployeesFromDb();
+                await _cache.InsertEmployeeList(empList);
+            }
+            else
+            {
+                empList = await _cache.GetEmployeeList();
             }
 
-            empList = await _employeeRepository.GetAllEmployeesFromDb();
-            await _cache.InsertEmployeeList(empList);
             return empList;
         }
 

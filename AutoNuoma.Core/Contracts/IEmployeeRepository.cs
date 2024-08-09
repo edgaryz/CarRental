@@ -9,5 +9,6 @@ namespace CarRental.Core.Contracts
         Task InsertEmployee(Employee employee);
         Task UpdateEmployee(Employee employee);
         Task DeleteEmployee(int id);
+        Task<int> GetEmployeeCountFromDb();
     }
 }

@@ -6,20 +6,40 @@ namespace CarRental.Core.Services
     public class CarsService : ICarsService
     {
         private readonly ICarsRepository _carsRepository;
-        public CarsService(ICarsRepository carsRepository)
+        private readonly IMongoDbCacheRepository _cache;
+        public CarsService(ICarsRepository carsRepository, IMongoDbCacheRepository cache)
         {
             _carsRepository = carsRepository;
+            _cache = cache;
         }
 
         //Electric Cars
         public async Task<List<ElectricCar>> GetAllElectricCars()
         {
-            return await _carsRepository.GetAllElectricCars();
+            var evList = await _cache.GetElectricCarList();
+
+            if (evList != null)
+            {
+                return evList;
+            }
+
+            evList = await _carsRepository.GetAllElectricCars();
+            await _cache.InsertElectricCarList(evList);
+            return evList;
         }
 
         public async Task<ElectricCar> GetElectricCarById(int id)
         {
-            return await _carsRepository.GetElectricCarById(id);
+            var ev = await _cache.GetElectricCarById(id);
+
+            if (ev != null)
+            {
+                return ev;
+            }
+
+            ev = await _carsRepository.GetElectricCarById(id);
+            await _cache.InsertElectricCar(ev);
+            return ev;
         }
 
         public async Task InsertElectricCar(ElectricCar car)
@@ -39,12 +59,30 @@ namespace CarRental.Core.Services
         //Oil Fuel Cars
         public async Task<List<OilFuelCar>> GetAllOilFuelCars()
         {
-            return await _carsRepository.GetAllOilFuelCars();
+            var ofcList = await _cache.GetOilFuelCarList();
+
+            if (ofcList != null)
+            {
+                return ofcList;
+            }
+
+            ofcList = await _carsRepository.GetAllOilFuelCars();
+            await _cache.InsertOilFuelCarList(ofcList);
+            return ofcList;
         }
 
         public async Task<OilFuelCar> GetOilFuelCarById(int id)
         {
-            return await _carsRepository.GetOilFuelCarById(id);
+            var ofc = await _cache.GetOilFuelCarById(id);
+
+            if (ofc != null)
+            {
+                return ofc;
+            }
+
+            ofc = await _carsRepository.GetOilFuelCarById(id);
+            await _cache.InsertOilFuelCar(ofc);
+            return ofc;
         }
 
         public async Task InsertOilFuelCar(OilFuelCar car)

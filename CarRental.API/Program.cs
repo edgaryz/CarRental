@@ -44,4 +44,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+var clearCache = app.Services.GetRequiredService<IClearCacheService>();
+clearCache.ClearCache();
+
 app.Run();

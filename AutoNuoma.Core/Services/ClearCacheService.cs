@@ -1,6 +1,4 @@
 ﻿using CarRental.Core.Contracts;
-using MongoDB.Bson;
-using MongoDB.Driver;
 
 namespace CarRental.Core.Services
 {
@@ -19,8 +17,9 @@ namespace CarRental.Core.Services
                 Console.WriteLine("Cache clear in 1 minute");
                 await Task.Delay(TimeSpan.FromMinutes(1));
                 var clnClear = _mongoDbCacheRepository.ClearClientsCache();
+                var empClear = _mongoDbCacheRepository.ClearEmployeeCache();
 
-                await Task.WhenAll(clnClear);
+                await Task.WhenAll(clnClear, empClear);
                 Console.WriteLine("All cache has been cleared");
             }
         }

@@ -13,10 +13,21 @@ namespace CarRental.Core.Services
             _employeeRepository = employeeRepository;
             _cache = cache;
         }
+
         public async Task<List<Employee>> GetAllEmployeesFromDb()
         {
-            return await _employeeRepository.GetAllEmployeesFromDb();
+            var empList = await _cache.GetEmployeeList();
+
+            if (empList != null)
+            {
+                return empList;
+            }
+
+            empList = await _employeeRepository.GetAllEmployeesFromDb();
+            await _cache.InsertEmployeeList(empList);
+            return empList;
         }
+
         public async Task<Employee> GetEmployeeById(int id)
         {
             var emp = await _cache.GetEmployeeById(id);
@@ -27,17 +38,20 @@ namespace CarRental.Core.Services
             }
 
             emp = await _employeeRepository.GetEmployeeById(id);
-            await _cache.AddEmployee(emp);
+            await _cache.InsertEmployee(emp);
             return emp;
         }
+
         public async Task InsertEmployee(Employee employee)
         {
             await _employeeRepository.InsertEmployee(employee);
         }
+
         public async Task UpdateEmployee(Employee employee)
         {
             await _employeeRepository.UpdateEmployee(employee);
         }
+
         public async Task DeleteEmployee(int id)
         {
             await _employeeRepository.DeleteEmployee(id);

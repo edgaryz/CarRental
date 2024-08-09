@@ -6,21 +6,24 @@ namespace CarRental.Core.Repositories
 {
     public class MongoDbCacheRepository : IMongoDbCacheRepository
     {
-        private IMongoCollection<Employee> _employeesCache;
-        private IMongoCollection<Client> _clientsCache;
         private IMongoCollection<ElectricCar> _evCarsCache;
         private IMongoCollection<OilFuelCar> _ofcCarsCache;
-        public MongoDbCacheRepository(IMongoClient mongoClient) {
-            _employeesCache = mongoClient.GetDatabase("employees").GetCollection<Employee>("employees_cache");
-            _clientsCache = mongoClient.GetDatabase("clients").GetCollection<Client>("clients_cache");
+        private IMongoCollection<Client> _clientsCache;
+        private IMongoCollection<Employee> _employeesCache;
+
+        public MongoDbCacheRepository(IMongoClient mongoClient)
+        {
             _evCarsCache = mongoClient.GetDatabase("electric cars").GetCollection<ElectricCar>("electric_cars_cache");
             _ofcCarsCache = mongoClient.GetDatabase("oil fuel cars").GetCollection<OilFuelCar>("oil_fuel_cars_cache");
+            _clientsCache = mongoClient.GetDatabase("clients").GetCollection<Client>("clients_cache");
+            _employeesCache = mongoClient.GetDatabase("employees").GetCollection<Employee>("employees_cache");
+
         }
 
         //Electric Cars
-        public async Task AddElectricCar(ElectricCar ev)
+        public async Task<List<ElectricCar>> GetElectricCarList()
         {
-            await _evCarsCache.InsertOneAsync(ev);
+            return await _evCarsCache.Find<ElectricCar>(x => true).ToListAsync();
         }
 
         public async Task<ElectricCar> GetElectricCarById(int id)
@@ -35,10 +38,25 @@ namespace CarRental.Core.Repositories
             }
         }
 
-        //Oil Fuel Cars
-        public async Task AddOilFuelCar(OilFuelCar ofc)
+        public async Task InsertElectricCarList(List<ElectricCar> evList)
         {
-            await _ofcCarsCache.InsertOneAsync(ofc);
+            await _evCarsCache.InsertManyAsync(evList);
+        }
+
+        public async Task InsertElectricCar(ElectricCar ev)
+        {
+            await _evCarsCache.InsertOneAsync(ev);
+        }
+
+        public async Task ClearElectricCarCache()
+        {
+            await _evCarsCache.Database.DropCollectionAsync("electric_cars_cache");
+        }
+
+        //Oil Fuel Cars
+        public async Task<List<OilFuelCar>> GetOilFuelCarList()
+        {
+            return await _ofcCarsCache.Find<OilFuelCar>(x => true).ToListAsync();
         }
 
         public async Task<OilFuelCar> GetOilFuelCarById(int id)
@@ -53,15 +71,25 @@ namespace CarRental.Core.Repositories
             }
         }
 
-        public async Task ClearOilFuelCarsCache(OilFuelCar ofc)
+        public async Task InsertOilFuelCarList(List<OilFuelCar> ofcList)
+        {
+            await _ofcCarsCache.InsertManyAsync(ofcList);
+        }
+
+        public async Task InsertOilFuelCar(OilFuelCar ofc)
         {
             await _ofcCarsCache.InsertOneAsync(ofc);
         }
 
-        //Client
-        public async Task AddClient(Client client)
+        public async Task ClearOilFuelCarsCache()
         {
-            await _clientsCache.InsertOneAsync(client);
+            await _ofcCarsCache.Database.DropCollectionAsync("oil_fuel_cars_cache");
+        }
+
+        //Clients
+        public async Task<List<Client>> GetClientList()
+        {
+            return await _clientsCache.Find<Client>(x => true).ToListAsync();
         }
 
         public async Task<Client> GetClientById(int id)
@@ -76,15 +104,25 @@ namespace CarRental.Core.Repositories
             }
         }
 
+        public async Task InsertClientList(List<Client> clnList)
+        {
+            await _clientsCache.InsertManyAsync(clnList);
+        }
+
+        public async Task InsertClient(Client client)
+        {
+            await _clientsCache.InsertOneAsync(client);
+        }
+
         public async Task ClearClientsCache()
         {
             await _clientsCache.Database.DropCollectionAsync("clients_cache");
         }
 
-        //Employee
-        public async Task AddEmployee(Employee employee)
+        //Employees
+        public async Task<List<Employee>> GetEmployeeList()
         {
-            await _employeesCache.InsertOneAsync(employee);
+            return await _employeesCache.Find<Employee>(x => true).ToListAsync();
         }
 
         public async Task<Employee> GetEmployeeById(int id)
@@ -97,6 +135,21 @@ namespace CarRental.Core.Repositories
             {
                 return null;
             }
+        }
+
+        public async Task InsertEmployeeList(List<Employee> empList)
+        {
+            await _employeesCache.InsertManyAsync(empList);
+        }
+
+        public async Task InsertEmployee(Employee employee)
+        {
+            await _employeesCache.InsertOneAsync(employee);
+        }
+
+        public async Task ClearEmployeeCache()
+        {
+            await _employeesCache.Database.DropCollectionAsync("employees_cache");
         }
 
     }

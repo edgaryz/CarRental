@@ -16,7 +16,16 @@ namespace CarRental.Core.Services
 
         public async Task<List<Client>> GetAllClientsFromDb()
         {
-            return await _clientRepository.GetAllClientsFromDb();
+            var clnList = await _cache.GetClientList();
+
+            if (clnList != null)
+            {
+                return clnList;
+            }
+
+            clnList = await _clientRepository.GetAllClientsFromDb();
+            await _cache.InsertClientList(clnList);
+            return clnList;
         }
 
         public async Task<Client> GetClientById(int id)
@@ -29,6 +38,7 @@ namespace CarRental.Core.Services
             }
 
             cln = await _clientRepository.GetClientById(id);
+            await _cache.InsertClient(cln);
             return cln;
         }
 

@@ -13,9 +13,9 @@ namespace CarRental.FrontEnd.Pages
         {
             _carRentService = carRentService;
         }
-        public void OnGet()
+        public async Task OnGet()
         {
-            allClients = _carRentService.GetAllClientsFromDb();
+            allClients = await _carRentService.GetAllClientsFromDb();
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using CarRental.Core.Contracts;
 using CarRental.Core.Models;
-using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace CarRental.Core.Repositories

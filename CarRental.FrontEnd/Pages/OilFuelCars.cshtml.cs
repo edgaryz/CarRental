@@ -14,9 +14,9 @@ namespace CarRental.FrontEnd.Pages
             _carRentService = carRentService;
         }
 
-        public void OnGet()
+        public async Task OnGet()
         {
-            allOFC = _carRentService.GetAllOilFuelCars();
+            allOFC = await _carRentService.GetAllOilFuelCars();
         }
     }
 }

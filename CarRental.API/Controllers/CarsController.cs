@@ -25,8 +25,16 @@ namespace CarRental.API.Controllers
         [HttpGet("GetElectricCarById")]
         public async Task<IActionResult> GetElectricCarById(int id)
         {
-            var evCar = await _carRentService.GetElectricCarById(id);
-            return Ok(evCar);
+            try
+            {
+                var evCar = await _carRentService.GetElectricCarById(id);
+                return Ok(evCar);
+            }
+            catch
+            {
+                return NotFound();
+            }
+
         }
 
         [HttpPost("InsertElectricCar")]
@@ -60,8 +68,16 @@ namespace CarRental.API.Controllers
         [HttpDelete("DeleteElectricCar")]
         public async Task<IActionResult> DeleteElectricCar(int id)
         {
+            try
+            {
                 await _carRentService.DeleteElectricCar(id);
                 return Ok();
+            }
+            catch
+            {
+                return NotFound();
+            }
+
         }
 
         //Oil Fuel Cars
@@ -75,8 +91,15 @@ namespace CarRental.API.Controllers
         [HttpGet("GetOilFuelCarById")]
         public async Task<IActionResult> GetOilFuelCarById(int id)
         {
-            var ofcCar = await _carRentService.GetOilFuelCarById(id);
-            return Ok(ofcCar);
+            try
+            {
+                var ofcCar = await _carRentService.GetOilFuelCarById(id);
+                return Ok(ofcCar);
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost("InsertOilFuelCar")]
@@ -110,8 +133,15 @@ namespace CarRental.API.Controllers
         [HttpDelete("DeleteOilFuelCar")]
         public async Task<IActionResult> DeleteOilFuelCar(int id)
         {
-            await _carRentService.DeleteOilFuelCar(id);
-            return Ok();
+            try
+            {
+                await _carRentService.DeleteOilFuelCar(id);
+                return Ok();
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
     }
 }

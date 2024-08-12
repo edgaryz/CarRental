@@ -15,15 +15,29 @@ namespace CarRental.API.Controllers
         [HttpGet("GetAllEmployees")]
         public async Task<IActionResult> GetAllEmployees()
         {
-            var allEmployees = await _carRentService.GetAllEmployeesFromDb();
-            return Ok(allEmployees);
+            try
+            {
+                var allEmployees = await _carRentService.GetAllEmployeesFromDb();
+                return Ok(allEmployees);
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
 
         [HttpGet("GetEmployeeById")]
         public async Task<IActionResult> GetEmployeeById(int id)
         {
-            var employee = await _carRentService.GetEmployeeById(id);
-            return Ok(employee);
+            try
+            {
+                var employee = await _carRentService.GetEmployeeById(id);
+                return Ok(employee);
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost("InsertEmployee")]
@@ -57,8 +71,15 @@ namespace CarRental.API.Controllers
         [HttpDelete("DeleteEmployee")]
         public async Task<IActionResult> DeleteEmployee(int id)
         {
-            await _carRentService.DeleteEmployee(id);
-            return Ok();
+            try
+            {
+                await _carRentService.DeleteEmployee(id);
+                return Ok();
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
 
         //ALGOS ENDPOINTS TODO

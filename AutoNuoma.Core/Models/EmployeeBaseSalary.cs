@@ -1,23 +1,21 @@
 ﻿using CarRental.Core.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarRental.Core.Models
 {
-    public class EmployeeBaseSalary : Employee
+    public class EmployeeBaseSalary
     {
-        public int EmployeeId { get; set; }
+        [Key]
+        public int Id { get; set; }
+        [ForeignKey("EmployeeId")]
+        public Employee Employee { get; set; }
         public double BaseSalary { get; set; }
         public EmployeeBaseSalary() { }
-        public EmployeeBaseSalary(int employeeId, double baseSalary)
+        public EmployeeBaseSalary(Employee employee, double baseSalary)
         {
-            EmployeeId = employeeId;
+            Employee = employee;
             BaseSalary = baseSalary;
         }
-        public EmployeeBaseSalary(int employeeId, double baseSalary, int id, string firstName, string lastName, Position position) : base(id, firstName, lastName, position)
-        {
-            EmployeeId = employeeId;
-            BaseSalary = baseSalary;
-        }
-
-
     }
 }

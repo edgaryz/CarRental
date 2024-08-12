@@ -15,15 +15,29 @@ namespace CarRental.API.Controllers
         [HttpGet("GetAllClients")]
         public async Task<IActionResult> GetAllClients()
         {
-            var allClients = await _carRentService.GetAllClientsFromDb();
-            return Ok(allClients);
+            try
+            {
+                var allClients = await _carRentService.GetAllClientsFromDb();
+                return Ok(allClients);
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
 
         [HttpGet("GetClientById")]
         public async Task<IActionResult> GetClientById(int id)
         {
-            var client = await _carRentService.GetClientById(id);
-            return Ok(client);
+            try
+            {
+                var client = await _carRentService.GetClientById(id);
+                return Ok(client);
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost("InsertClient")]
@@ -57,8 +71,15 @@ namespace CarRental.API.Controllers
         [HttpDelete("DeleteClient")]
         public async Task<IActionResult> DeleteClient(int id)
         {
-            await _carRentService.DeleteClient(id);
-            return Ok();
+            try
+            {
+                await _carRentService.DeleteClient(id);
+                return Ok();
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
     }
 }

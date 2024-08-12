@@ -1,14 +1,25 @@
-﻿namespace CarRental.Core.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace CarRental.Core.Models
 {
     public class RentOrder
     {
+        [Key]
+        public int Id { get; set; }
+        [ForeignKey("ClientId")]
         public Client Client { get; set; }
+        [ForeignKey("CarId")]
         public Car Car { get; set; }
+        [NotMapped]
         public int ClientId { get; set; }
+        [NotMapped]
         public int ElectricCarId { get; set; }
+        [NotMapped]
         public int OilFuelCarId { get; set; }
         public DateTime OrderStartDate { get; set; }
         public int OrderDays { get; set; }
+        [NotMapped]
         public int EmployeeId { get; set; }
         public RentOrder() { }
         public RentOrder(Client client, Car car, DateTime orderStartDate, int orderDays)

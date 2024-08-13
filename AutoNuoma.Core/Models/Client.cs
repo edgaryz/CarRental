@@ -20,7 +20,7 @@ namespace CarRental.Core.Models
 
         public override string ToString()
         {
-            return $"Client: {FirstName} {LastName} {YearOfBirth.ToString("yyyy-MM-dd")}";
+            return $"Client: ID {Id}, {FirstName} {LastName} {YearOfBirth.ToString("yyyy-MM-dd")}";
         }
     }
 }

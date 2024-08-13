@@ -1,6 +1,6 @@
 ﻿@page
 @using CarRental.Core.Models
-@model CarRental.FrontEnd.Pages.ClientsModel
+@model CarRental.FrontEnd.Pages.EmployeesModel
 @{
     ViewData["Title"] = "Clients";
     Layout = "Shared/_Layout";
@@ -11,42 +11,42 @@
         <th>ID</th>
         <th>First Name</th>
         <th>Last Name</th>
-        <th>Year Of Birth</th>
+        <th>Position</th>
     </tr>
-    @foreach (Client client in Model.allClients)
+    @foreach (Employee employee in Model.allEmployees)
     {
         <tr class="my-table-row">
-            <td>@client.Id</td>
-            <td>@client.FirstName</td>
-            <td>@client.LastName</td>
-            <td>@client.YearOfBirth.ToString("yyyy-MM-dd")</td>
+            <td>@employee.Id</td>
+            <td>@employee.FirstName</td>
+            <td>@employee.LastName</td>
+            <td>@employee.Position</td>
 
         </tr>
     }
 </table>
 <br>
 <h1>Insert form</h1>
-<h3>Please fill information below to create new Client</h3>
-<form id="clientInsertForm" class="form-control">
+<h3>Please fill information below to create new Employee</h3>
+<form id="employeeInsertForm" class="form-control">
     <label for="firstName" class="col-form-label"><b>First Name</b></label><br>
     <input type="text" id="firstName" name="firstName" required><br>
     <label for="lastName"><b>Last Name</b></label><br>
     <input type="text" id="lastName" name="lastName" required><br>
-    <label for="yearOfBirth"><b>Year Of Birth</b></label><br>
-    <input type="date" id="yearOfBirth" name="yearOfBirth" required><br>
+    <label for="position"><b>Position</b></label><br>
+    <input type="number" id="position" name="position" required><br>
     <br>
     <button type="submit" id="submit-insert-button">Submit</button>
 </form>
 <br>
 <h1>Update form</h1>
-<h3>Please fill information below to update Client</h3>
-<form id="clientUpdateForm" class="form-control">
-    <label for="id"><b>Client</b></label><br>
-    <select name="id" id="clientList">
-        <option value="0">Please select Client</option>
-        @foreach (var cln in Model.allClients)
+<h3>Please fill information below to update Employee</h3>
+<form id="employeeUpdateForm" class="form-control">
+    <label for="id"><b>Employee</b></label><br>
+    <select name="id" id="employeeList">
+        <option value="0">Please select Employee</option>
+        @foreach (var emp in Model.allEmployees)
         {
-            <option value="@cln.Id">@cln</option>
+            <option value="@emp.Id">@emp</option>
         }
     </select>
     <br>
@@ -54,15 +54,15 @@
     <input type="text" id="updateFirstName" name="firstName" required><br>
     <label for="lastName"><b>Last Name</b></label><br>
     <input type="text" id="updateLastName" name="lastName" required><br>
-    <label for="yearOfBirth"><b>Year Of Birth</b></label><br>
-    <input type="date" id="updateYearOfBirth" name="yearOfBirth" required><br>
+    <label for="position"><b>Position</b></label><br>
+    <input type="text" id="updatePosition" name="position" required><br>
     <br>
     <button type="submit" id="submit-update-button">Submit</button>
 </form>
 <br>
 <h1>Delete form</h1>
-<h3>Please enter ID to delete Client</h3>
-<form id="clientDeleteForm" class="form-control">
+<h3>Please enter ID to delete Employee</h3>
+<form id="employeeDeleteForm" class="form-control">
     <label for="id"><b>Id</b></label><br>
     <input type="text" id="deleteId" name="id" required><br>
     <br>
@@ -71,7 +71,7 @@
 
 <script>
     //get
-    function getClientData(endpoint) {
+    function getEmployeeData(endpoint) {
         fetch(endpoint, {
             method: 'GET',
             headers: {
@@ -83,10 +83,10 @@
                 if (!response.ok) {
                     throw new Error('Network response was not ok ' + response.statusText);
                 }
-                const client = await response.json();
-                document.getElementById('updateFirstName').value = client.firstName;
-                document.getElementById('updateLastName').value = client.lastName;
-                document.getElementById('updateYearOfBirth').value = client.yearOfBirth;
+                const employee = await response.json();
+                document.getElementById('updateFirstName').value = employee.firstName;
+                document.getElementById('updateLastName').value = employee.lastName;
+                document.getElementById('updatePosition').value = employee.position;
             })
             .then(data => {
                 console.log('Success:', data);
@@ -95,18 +95,18 @@
                 console.error('There was a problem with the fetch operation:', error);
             });
     }
-        document.getElementById('clientList').addEventListener('change', function (event) {
+    document.getElementById('employeeList').addEventListener('change', function (event) {
         event.preventDefault();
-        const endpoint = `https://localhost:7257/GetClientById?id=` + document.getElementById('clientList').value;
-        getClientData(endpoint);
+        const endpoint = `https://localhost:7257/GetEmployeeById?id=` + document.getElementById('employeeList').value;
+        getEmployeeData(endpoint);
     });
 
     //insert
-    function sendFormDataInsertClient(endpoint, formData) {
+    function sendFormDataInsertEmployee(endpoint, formData) {
         const plainFormData = Object.fromEntries(formData.entries());
         const jsonString = JSON.stringify(plainFormData);
         var submitButton = document.getElementById('submit-insert-button');
-        submitButton.innerText = 'Creating new Client';
+        submitButton.innerText = 'Creating new Employee';
         submitButton.style.background = '#49cc90';
         fetch(endpoint, {
             method: 'POST',
@@ -121,7 +121,7 @@
                     throw new Error('Network response was not ok ' + response.statusText);
                 }
                 alert('Creation successful');
-                window.location.href = '/Clients'
+                window.location.href = '/Employees'
             })
             .then(data => {
                 console.log('Success:', data);
@@ -131,19 +131,19 @@
             });
     }
 
-    document.getElementById('clientInsertForm').addEventListener('submit', function (event) {
+    document.getElementById('employeeInsertForm').addEventListener('submit', function (event) {
         event.preventDefault();
-        const endpoint = 'https://localhost:7257/InsertClient';
+        const endpoint = 'https://localhost:7257/InsertEmployee';
         const formData = new FormData(this);
-        sendFormDataInsertClient(endpoint, formData);
+        sendFormDataInsertEmployee(endpoint, formData);
     });
 
     //update
-    function sendFormDataUpdateClient(endpoint, formData) {
+    function sendFormDataUpdateEmployee(endpoint, formData) {
         const plainFormData = Object.fromEntries(formData.entries());
         const jsonString = JSON.stringify(plainFormData);
         var submitButton = document.getElementById('submit-update-button');
-        submitButton.innerText = 'Updating Client';
+        submitButton.innerText = 'Updating Employee';
         submitButton.style.background = '#fca130';
         fetch(endpoint, {
             method: 'PUT',
@@ -158,7 +158,7 @@
                     throw new Error('Network response was not ok ' + response.statusText);
                 }
                 alert('Updated successful');
-                window.location.href = '/Clients'
+                window.location.href = '/Employees'
             })
             .then(data => {
                 console.log('Success:', data);
@@ -168,19 +168,19 @@
             });
     }
 
-    document.getElementById('clientUpdateForm').addEventListener('submit', function (event) {
+    document.getElementById('employeeUpdateForm').addEventListener('submit', function (event) {
         event.preventDefault();
-        const endpoint = 'https://localhost:7257/UpdateClient';
+        const endpoint = 'https://localhost:7257/UpdateEmployee';
         const formData = new FormData(this);
-        sendFormDataUpdateClient(endpoint, formData);
+        sendFormDataUpdateEmployee(endpoint, formData);
     });
 
     //delete
-    function sendFormDataDeleteClient(endpoint, formData) {
+    function sendFormDataDeleteEmployee(endpoint, formData) {
         const plainFormData = Object.fromEntries(formData.entries());
         const jsonString = JSON.stringify(plainFormData);
         var submitButton = document.getElementById('submit-delete-button');
-        submitButton.innerText = 'Deleting Client';
+        submitButton.innerText = 'Deleting Employee';
         submitButton.style.background = '#fca130';
         endpoint += '/' + document.getElementById('deleteId').value;
         fetch(endpoint, {
@@ -196,7 +196,7 @@
                     throw new Error('Network response was not ok ' + response.statusText);
                 }
                 alert('Delete successful');
-                window.location.href = '/Clients'
+                window.location.href = '/Employees'
             })
             .then(data => {
                 console.log('Success:', data);
@@ -206,10 +206,10 @@
             });
     }
 
-    document.getElementById('clientDeleteForm').addEventListener('submit', function (event) {
+    document.getElementById('employeeDeleteForm').addEventListener('submit', function (event) {
         event.preventDefault();
-        const endpoint = 'https://localhost:7257/DeleteClient';
+        const endpoint = 'https://localhost:7257/DeleteEmployee';
         const formData = new FormData(this);
-        sendFormDataDeleteClient(endpoint, formData);
+        sendFormDataDeleteEmployee(endpoint, formData);
     });
 </script>

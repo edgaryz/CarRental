@@ -15,7 +15,7 @@
 
         public override string ToString()
         {
-            return $"{Id} {Brand} {Model}, rent price: {RentPrice.ToString("F2")} Eur, fuel consumption: {FuelConsumption}.";
+            return $"Id - {Id}, {Brand} {Model}, rent price: {RentPrice.ToString("F2")} Eur, fuel consumption: {FuelConsumption}.";
         }
     }
 }

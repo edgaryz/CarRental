@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRental.Core", "AutoNuoma
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRental.API", "CarRental.API\CarRental.API.csproj", "{2B2DC214-0E9F-4C20-937F-7F55C8DA3D99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRental.FrontEnd", "CarRental.FrontEnd\CarRental.FrontEnd.csproj", "{B677F1D3-E059-493F-9B86-2C959814A4D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRental.FrontEnd", "CarRental.FrontEnd\CarRental.FrontEnd.csproj", "{B677F1D3-E059-493F-9B86-2C959814A4D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

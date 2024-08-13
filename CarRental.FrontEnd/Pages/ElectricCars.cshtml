@@ -6,8 +6,9 @@
     Layout = "Shared/_Layout";
 }
 
-
-<table class="my-table">
+<h1> ELECTRIC CARS</h1>
+<h3>Our Electric Cars we have right now!</h3>
+<table class="table" border="2">
     <tr class="my-table-row-headings">
         <th>ID</th>
         <th>Brand</th>
@@ -29,10 +30,9 @@
     }
 </table>
 <br>
-<br>
 <h1>Insert form</h1>
 <h3>Please fill information below to create new Electric Car</h3>
-<form id="electricCarInsertForm">
+<form id="electricCarInsertForm" class="form-control">
     <label for="brand"><b>Brand</b></label><br>
     <input type="text" id="brand" name="brand" required><br>
     <label for="model"><b>Model</b></label><br>
@@ -47,10 +47,9 @@
     <button type="submit" id="submit-button">Submit</button>
 </form>
 <br>
-<br>
 <h1>Update form</h1>
 <h3>Please fill information below to update Electric Car</h3>
-<form id="electricCarUpdateForm">
+<form id="electricCarUpdateForm" class="form-control">
     <label for="id"><b>Id</b></label><br>
     <input type="text" id="updateId" name="id" required><br>
     <label for="brand"><b>Brand</b></label><br>
@@ -67,10 +66,9 @@
     <button type="submit" id="submit-update-button">Submit</button>
 </form>
 <br>
-<br>
 <h1>Delete form</h1>
 <h3>Please enter ID to delete Electric Car</h3>
-<form id="electricCarDeleteForm">
+<form id="electricCarDeleteForm" class="form-control">
     <label for="id"><b>Id</b></label><br>
     <input type="text" id="deleteId" name="id" required><br>
     <br>
@@ -114,6 +112,7 @@
         const formData = new FormData(this);
         sendFormDataInsert(endpoint, formData);
     });
+
     //update
     function sendFormDataUpdate(endpoint, formData) {
         const plainFormData = Object.fromEntries(formData.entries());

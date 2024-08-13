@@ -41,7 +41,7 @@ namespace CarRental.API.Controllers
         }
 
         [HttpPost("InsertClient")]
-        public async Task<IActionResult> InsertClient(Client client)
+        public async Task<IActionResult> InsertClient([FromBody] Client client)
         {
             try
             {
@@ -55,7 +55,7 @@ namespace CarRental.API.Controllers
         }
 
         [HttpPut("UpdateClient")]
-        public async Task<IActionResult> UpdateClient(Client client)
+        public async Task<IActionResult> UpdateClient([FromBody] Client client)
         {
             try
             {
@@ -68,7 +68,7 @@ namespace CarRental.API.Controllers
             }
         }
 
-        [HttpDelete("DeleteClient")]
+        [HttpDelete("DeleteClient/{id}")]
         public async Task<IActionResult> DeleteClient(int id)
         {
             try

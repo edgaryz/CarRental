@@ -41,7 +41,7 @@ namespace CarRental.API.Controllers
         }
 
         [HttpPost("InsertEmployee")]
-        public async Task<IActionResult> InsertEmployee(Employee employee)
+        public async Task<IActionResult> InsertEmployee([FromBody] Employee employee)
         {
             try
             {
@@ -55,7 +55,7 @@ namespace CarRental.API.Controllers
         }
 
         [HttpPut("UpdateEmployee")]
-        public async Task<IActionResult> UpdateEmployee(Employee employee)
+        public async Task<IActionResult> UpdateEmployee([FromBody] Employee employee)
         {
             try
             {
@@ -68,7 +68,7 @@ namespace CarRental.API.Controllers
             }
         }
 
-        [HttpDelete("DeleteEmployee")]
+        [HttpDelete("DeleteEmployee/{id}")]
         public async Task<IActionResult> DeleteEmployee(int id)
         {
             try

@@ -6,7 +6,10 @@
     Layout = "Shared/_Layout";
 }
 
-<table class="my-table" border="1">
+
+<h1> OIL FUEL CARS</h1>
+<h3>Our Oil Fuel Cars we have right now!</h3>
+<table class="table" border="2">
     <tr class="my-table-row-headings">
         <th>ID</th>
         <th>Brand</th>
@@ -26,20 +29,196 @@
     }
 </table>
 <br>
-<br>
 <h1>Insert form</h1>
 <h3>Please fill information below to create new Oil Fuel Car</h3>
-<form>
-    <label><b>Id</b></label><br>
-    <input type="text"><br>
-    <label><b>Brand</b></label><br>
-    <input type="text"><br>
-    <label><b>Model</b></label><br>
-    <input type="text"><br>
-    <label><b>Rent Price</b></label><br>
-    <input type="text"><br>
-    <label><b>Fuel Consumption</b></label><br>
-    <input type="text">
+<form id="oilFuelCarInsertForm" class="form-control">
+    <label for="brand" class="col-form-label"><b>Brand</b></label><br>
+    <input type="text" id="brand" name="brand" required><br>
+    <label for="model"><b>Model</b></label><br>
+    <input type="text" id="model" name="model" required><br>
+    <label for="rentPrice"><b>Rent Price</b></label><br>
+    <input type="text" id="rentPrice" name="rentPrice" step="0.01" required><br>
+    <label for="fuelConsumption"><b>Fuel Consumption</b></label><br>
+    <input type="text" id="fuelConsumption" name="fuelConsumption" required><br>
     <br>
-    <input type="submit">
+    <button type="submit" id="submit-insert-button">Submit</button>
 </form>
+<br>
+<h1>Update form</h1>
+<h3>Please fill information below to update Oil Fuel Car</h3>
+<form id="oilFuelCarUpdateForm" class="form-control">
+    <label for="id"><b>Car</b></label><br>
+    <select name="id" id="ofCars"> 
+        <option value="0">Please select Oil Fuel Car</option>
+    @foreach(var ofc in Model.allOFC)
+    {
+        <option value="@ofc.Id">@ofc</option>
+    }
+    </select>
+    <br>
+    <label for="brand"><b>Brand</b></label><br>
+    <input type="text" id="updateBrand" name="brand" required><br>
+    <label for="model"><b>Model</b></label><br>
+    <input type="text" id="updateModel" name="model" required><br>
+    <label for="rentPrice"><b>Rent Price</b></label><br>
+    <input type="text" id="updateRentPrice" name="rentPrice" step="0.01" required><br>
+    <label for="fuelConsumption"><b>Fuel Consumption</b></label><br>
+    <input type="text" id="updateFuelConsumption" name="fuelConsumption" required><br>
+    <br>
+    <button type="submit" id="submit-update-button">Submit</button>
+</form>
+<br>
+<h1>Delete form</h1>
+<h3>Please enter ID to delete Electric Car</h3>
+<form id="oilFuelCarDeleteForm" class="form-control">
+    <label for="id"><b>Id</b></label><br>
+    <input type="text" id="deleteId" name="id" required><br>
+    <br>
+    <button type="submit" id="submit-delete-button">Submit</button>
+</form>
+
+
+<script>
+    function getCarData(endpoint) {
+        fetch(endpoint, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(async response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                const car = await response.json();
+                document.getElementById('updateBrand').value = car.brand;
+                document.getElementById('updateModel').value = car.model;
+                document.getElementById('updateRentPrice').value = car.rentPrice;
+                document.getElementById('updateFuelConsumption').value = car.fuelConsumption;
+            })
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    }
+        document.getElementById('ofCars').addEventListener('change', function (event) {
+        event.preventDefault();
+        const endpoint = `https://localhost:7257/Cars/GetOilFuelCarById?id=` + document.getElementById('ofCars').value;
+        getCarData(endpoint);
+    });
+
+    //insert
+    function sendFormDataInsert(endpoint, formData) {
+        const plainFormData = Object.fromEntries(formData.entries());
+        const jsonString = JSON.stringify(plainFormData);
+        var submitButton = document.getElementById('submit-insert-button');
+        submitButton.innerText = 'Creating new OFC';
+        submitButton.style.background = '#49cc90';
+        fetch(endpoint, {
+            method: 'POST',
+            body: jsonString,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                alert('Creation successful');
+                window.location.href = '/OilFuelCars'
+            })
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    }
+
+    document.getElementById('oilFuelCarInsertForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const endpoint = 'https://localhost:7257/Cars/InsertOilFuelCar';
+        const formData = new FormData(this);
+        sendFormDataInsert(endpoint, formData);
+    });
+
+    //update
+    function sendFormDataUpdate(endpoint, formData) {
+        const plainFormData = Object.fromEntries(formData.entries());
+        const jsonString = JSON.stringify(plainFormData);
+        var submitButton = document.getElementById('submit-update-button');
+        submitButton.innerText = 'Updating OFC';
+        submitButton.style.background = '#fca130';
+        fetch(endpoint, {
+            method: 'PUT',
+            body: jsonString,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                alert('Updated successful');
+                window.location.href = '/OilFuelCars'
+            })
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    }
+
+    document.getElementById('oilFuelCarUpdateForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const endpoint = 'https://localhost:7257/Cars/UpdateOilFuelCar';
+        const formData = new FormData(this);
+        sendFormDataUpdate(endpoint, formData);
+    });
+
+    //delete
+    function sendFormDataDelete(endpoint, formData) {
+        const plainFormData = Object.fromEntries(formData.entries());
+        const jsonString = JSON.stringify(plainFormData);
+        var submitButton = document.getElementById('submit-delete-button');
+        submitButton.innerText = 'Deleting OFC';
+        submitButton.style.background = '#fca130';
+        endpoint += '/' + document.getElementById('deleteId').value;
+        fetch(endpoint, {
+            method: 'DELETE',
+            body: jsonString,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                alert('Delete successful');
+                window.location.href = '/OilFuelCars'
+            })
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    }
+
+    document.getElementById('oilFuelCarDeleteForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const endpoint = 'https://localhost:7257/Cars/DeleteOilFuelCar';
+        const formData = new FormData(this);
+        sendFormDataDelete(endpoint, formData);
+    });
+</script>

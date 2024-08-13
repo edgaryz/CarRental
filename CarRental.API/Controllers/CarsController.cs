@@ -130,7 +130,7 @@ namespace CarRental.API.Controllers
             }
         }
 
-        [HttpDelete("DeleteOilFuelCar")]
+        [HttpDelete("DeleteOilFuelCar/{id}")]
         public async Task<IActionResult> DeleteOilFuelCar(int id)
         {
             try

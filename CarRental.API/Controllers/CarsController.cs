@@ -65,7 +65,7 @@ namespace CarRental.API.Controllers
             }
         }
 
-        [HttpDelete("DeleteElectricCar")]
+        [HttpDelete("DeleteElectricCar/{id}")]
         public async Task<IActionResult> DeleteElectricCar(int id)
         {
             try

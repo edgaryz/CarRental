@@ -32,21 +32,195 @@
 <br>
 <h1>Insert form</h1>
 <h3>Please fill information below to create new Electric Car</h3>
-<form>
-    <label><b>Id</b></label><br>
-    <input type="text"><br>
-    <label><b>Brand</b></label><br>
-    <input type="text"><br>
-    <label><b>Model</b></label><br>
-    <input type="text"><br>
-    <label><b>Rent Price</b></label><br>
-    <input type="text"><br>
-    <label><b>Battery Capacity</b></label><br>
-    <input type="text"><br>
-    <label><b>Battery Charging Time</b></label><br>
-    <input type="text">
+<form id="electricCarInsertForm">
+    <label for="brand"><b>Brand</b></label><br>
+    <input type="text" id="brand" name="brand" required><br>
+    <label for="model"><b>Model</b></label><br>
+    <input type="text" id="model" name="model" required><br>
+    <label for="rentPrice"><b>Rent Price</b></label><br>
+    <input type="text" id="rentPrice" name="rentPrice" step="0.01" required><br>
+    <label for="batteryCapacity"><b>Battery Capacity</b></label><br>
+    <input type="text" id="batteryCapacity" name="batteryCapacity" required><br>
+    <label for="batteryChargingTime"><b>Battery Charging Time</b></label><br>
+    <input type="text" id="batteryChargingTime" name="batteryChargingTime" required><br>
     <br>
-    <input type="submit">
+    <button type="submit" id="submit-button">Submit</button>
+</form>
+<br>
+<br>
+<h1>Update form</h1>
+<h3>Please fill information below to update Electric Car</h3>
+<form id="electricCarUpdateForm">
+    <label for="id"><b>Id</b></label><br>
+    <input type="text" id="updateId" name="id" required><br>
+    <label for="brand"><b>Brand</b></label><br>
+    <input type="text" id="updateBrand" name="brand" required><br>
+    <label for="model"><b>Model</b></label><br>
+    <input type="text" id="updateModel" name="model" required><br>
+    <label for="rentPrice"><b>Rent Price</b></label><br>
+    <input type="text" id="updateRentPrice" name="rentPrice" step="0.01" required><br>
+    <label for="batteryCapacity"><b>Battery Capacity</b></label><br>
+    <input type="text" id="updateBatteryCapacity" name="batteryCapacity" required><br>
+    <label for="batteryChargingTime"><b>Battery Charging Time</b></label><br>
+    <input type="text" id="updateBatteryChargingTime" name="batteryChargingTime" required><br>
+    <br>
+    <button type="submit" id="submit-update-button">Submit</button>
+</form>
+<br>
+<br>
+<h1>Delete form</h1>
+<h3>Please enter ID to delete Electric Car</h3>
+<form id="electricCarDeleteForm">
+    <label for="id"><b>Id</b></label><br>
+    <input type="text" id="deleteId" name="id" required><br>
+    <br>
+    <button type="submit" id="submit-delete-button">Submit</button>
 </form>
 
+<script>
+    //insert
+    function sendFormDataInsert(endpoint, formData) {
+        const plainFormData = Object.fromEntries(formData.entries());
+        const jsonString = JSON.stringify(plainFormData);
+        var submitButton = document.getElementById('submit-button');
+        submitButton.innerText = 'Creating new EV';
+        submitButton.style.background = '#49cc90';
+        fetch(endpoint, {
+            method: 'POST',
+            body: jsonString,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                alert('Creation successful');
+                window.location.href = '/ElectricCars'
+            })
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    }
 
+    document.getElementById('electricCarInsertForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const endpoint = 'https://localhost:7257/Cars/InsertElectricCar';
+        const formData = new FormData(this);
+        sendFormDataInsert(endpoint, formData);
+    });
+    //update
+    function sendFormDataUpdate(endpoint, formData) {
+        const plainFormData = Object.fromEntries(formData.entries());
+        const jsonString = JSON.stringify(plainFormData);
+        var submitButton = document.getElementById('submit-update-button');
+        submitButton.innerText = 'Updating EV';
+        submitButton.style.background = '#fca130';
+        fetch(endpoint, {
+            method: 'PUT',
+            body: jsonString,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                alert('Updated successful');
+                window.location.href = '/ElectricCars'
+            })
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    }
+
+    document.getElementById('electricCarUpdateForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const endpoint = 'https://localhost:7257/Cars/UpdateElectricCar';
+        const formData = new FormData(this);
+        sendFormDataUpdate(endpoint, formData);
+    });
+
+    //delete
+    function sendFormDataDelete(endpoint, formData) {
+        const plainFormData = Object.fromEntries(formData.entries());
+        const jsonString = JSON.stringify(plainFormData);
+        var submitButton = document.getElementById('submit-delete-button');
+        submitButton.innerText = 'Deleting EV';
+        submitButton.style.background = '#fca130';
+        endpoint += '/' + document.getElementById('deleteId').value;
+        fetch(endpoint, {
+            method: 'DELETE',
+            body: jsonString,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                alert('Delete successful');
+                window.location.href = '/ElectricCars'
+            })
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    }
+
+    document.getElementById('electricCarDeleteForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const endpoint = 'https://localhost:7257/Cars/DeleteElectricCar';
+        const formData = new FormData(this);
+        sendFormDataDelete(endpoint, formData);
+    });
+</script>
+
+<script>
+    function getCarData(endpoint) 
+    {
+        fetch(endpoint, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(async response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                const car = await response.json();
+                document.getElementById('updateBrand').value = car.brand;
+                document.getElementById('updateModel').value = car.model;
+                document.getElementById('updateRentPrice').value = car.rentPrice;
+                document.getElementById('updateBatteryCapacity').value = car.batteryCapacity;
+                document.getElementById('updateBatteryChargingTime').value = car.batteryChargingTime;
+                })
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    }
+        document.getElementById('updateId').addEventListener('blur', function (event) {
+        event.preventDefault();
+        const endpoint = `https://localhost:7257/Cars/GetElectricCarById?id=` + document.getElementById('updateId').value;
+        getCarData(endpoint);
+    });
+</script>

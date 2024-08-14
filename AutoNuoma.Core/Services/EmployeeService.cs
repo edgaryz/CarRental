@@ -20,7 +20,7 @@ namespace CarRental.Core.Services
 
             if (await _employeeRepository.GetEmployeeCountFromDb() != await _cache.GetEmployeeCount())
             {
-                await _cache.ClearElectricCarCache();
+                await _cache.ClearEmployeeCache();
                 empList = await _employeeRepository.GetAllEmployeesFromDb();
                 await _cache.InsertEmployeeList(empList);
             }

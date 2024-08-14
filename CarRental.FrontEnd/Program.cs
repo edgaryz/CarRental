@@ -22,6 +22,7 @@ builder.Services.AddTransient<IEmployeeRepository, EmployeesEFDbRepository>(_ =>
 //builder.Services.AddTransient<IRentOrderRepository, OrdersDbRepository>(_ => new OrdersDbRepository("Server=localhost;Database=car_rental_db;Trusted_Connection=True;"));
 builder.Services.AddTransient<IRentOrderRepository, OrdersDbRepository>(_ => new OrdersDbRepository("Server=localhost;Database=car_rental_db;Trusted_Connection=True;"));
 //services
+builder.Services.AddSingleton<IClearCacheService, ClearCacheService>();
 builder.Services.AddTransient<ICarsService, CarsService>();
 builder.Services.AddTransient<IClientService, ClientService>();
 builder.Services.AddTransient<IEmployeeService, EmployeeService>();

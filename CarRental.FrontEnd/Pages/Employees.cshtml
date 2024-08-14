@@ -104,6 +104,7 @@
     //insert
     function sendFormDataInsertEmployee(endpoint, formData) {
         const plainFormData = Object.fromEntries(formData.entries());
+        plainFormData.position = parseInt(plainFormData.position);
         const jsonString = JSON.stringify(plainFormData);
         var submitButton = document.getElementById('submit-insert-button');
         submitButton.innerText = 'Creating new Employee';

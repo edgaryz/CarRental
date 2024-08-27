@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AstuntaPaskaitaCSharpAutoNuoma", "AstuntaPaskaitaCSharpAutoNuoma\AstuntaPaskaitaCSharpAutoNuoma.csproj", "{F6B87D42-9619-458E-ADE4-B0D39F43BCC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRental", "AstuntaPaskaitaCSharpAutoNuoma\CarRental.csproj", "{F6B87D42-9619-458E-ADE4-B0D39F43BCC9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRental.Core", "AutoNuoma.Core\CarRental.Core.csproj", "{24CC3D20-5A0F-4311-9E11-C8438E10F4F6}"
 EndProject
@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRental.API", "CarRental.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRental.FrontEnd", "CarRental.FrontEnd\CarRental.FrontEnd.csproj", "{B677F1D3-E059-493F-9B86-2C959814A4D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRental.Test", "CarRental.Test\CarRental.Test.csproj", "{8AD0C0FA-B413-4BC4-8D13-6835A9ECD2CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRental.Test", "CarRental.Test\CarRental.Test.csproj", "{8AD0C0FA-B413-4BC4-8D13-6835A9ECD2CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
